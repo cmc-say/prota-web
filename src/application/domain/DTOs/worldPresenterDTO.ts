@@ -1,1 +1,1 @@
-interface WorldPresenterDTO {}
+export interface WorldPresenterDTO {}
