@@ -6,7 +6,12 @@ import { WorldCard } from "../../../components/world/WorldCard";
 import { Layout } from "@/styled/layout";
 import { WorldCharacter } from "../../../components/world/WorldCharacter";
 import { CreateWorld } from "../../../components/world/CreateWorld";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useRecoilValueLoadable,
+  useSetRecoilState,
+} from "recoil";
 import {
   AtomAddCharacterWorld,
   AtomCharacterWorldsSelector,
@@ -44,7 +49,7 @@ const mockCharacters = {
 export default function World() {
   const [select, setSelect] = useRecoilState(AtomSelectedCharacterIdState);
   const [characters, setCharacters] = useRecoilState(AtomCharacters);
-  const worlds = useRecoilValue(AtomCharacterWorldsSelector);
+  const worlds = useRecoilValueLoadable(AtomCharacterWorldsSelector);
   const setCharacterWorlds = useSetRecoilState(AtomAddCharacterWorld);
 
   useEffect(() => {
@@ -76,9 +81,12 @@ export default function World() {
             </Styled.CharacterList>
             <Styled.WorldGapList>
               <WorldCard data={mockupData.worlds.data[0]} />
-              {worlds?.map((item: any) => (
-                <WorldCard key={item.worldId} data={item} />
-              ))}
+              {worlds.state === "hasValue" &&
+                worlds
+                  .getValue()
+                  ?.map((item: any) => (
+                    <WorldCard key={item.worldId} data={item} />
+                  ))}
               <CreateWorld />
             </Styled.WorldGapList>
           </Styled.Container>

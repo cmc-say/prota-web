@@ -11,10 +11,10 @@ import { css } from "@emotion/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import { ColorType } from "@/styled/color.type";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Toggle } from "../components/home/Toggle";
 import { CheckListCard } from "../components/home/CheckListCard";
-import { useRecoilValue } from "recoil";
+import { useRecoilValueLoadable } from "recoil";
 import { ProgressBar } from "../components/ProgressBar";
 import { Header } from "../components/header/Header";
 
@@ -22,7 +22,7 @@ import { AlarmDot } from "../components/home/AlarmDot";
 import { AtomAllCharacters } from "../atoms/Character";
 
 export default function HomePage() {
-  const characters = useRecoilValue(AtomAllCharacters);
+  const characters = useRecoilValueLoadable(AtomAllCharacters);
   const [isToggleOn, setToggleState] = useState(true);
   const [index, setIndex] = useState(0);
   const handleToggleContainerClick = () => {
@@ -37,6 +37,7 @@ export default function HomePage() {
           <div onClick={handleToggleContainerClick}>
             <Toggle initialOnOff={isToggleOn}></Toggle>
           </div>
+
           {isToggleOn ? (
             <>
               <Swiper
@@ -52,8 +53,9 @@ export default function HomePage() {
                   setIndex(e.activeIndex);
                 }}
               >
-                {characters.length &&
-                  characters.map((avatar, index) => (
+                {characters.state === "hasValue" &&
+                  characters.getValue().length &&
+                  characters.getValue().map((avatar, index) => (
                     <SwiperSlide key={avatar.avatarName}>
                       <CharacterCard
                         index={index + 1}
@@ -67,17 +69,18 @@ export default function HomePage() {
                   <EmptyCharacterCard></EmptyCharacterCard>
                 </SwiperSlide>
               </Swiper>
-              {index < characters.length && (
-                <Styled.ProgressForm>
-                  <GraphText
-                    color={ColorType.NEUTRAL00}
-                    type={TextSizeType.KR_SUB_HEAD_01}
-                  >
-                    캐릭터 과몰입 그래프
-                  </GraphText>
-                  <ProgressBar percent={0} />
-                </Styled.ProgressForm>
-              )}
+              {characters.state === "hasValue" &&
+                index < characters.getValue().length && (
+                  <Styled.ProgressForm>
+                    <GraphText
+                      color={ColorType.NEUTRAL00}
+                      type={TextSizeType.KR_SUB_HEAD_01}
+                    >
+                      캐릭터 과몰입 그래프
+                    </GraphText>
+                    <ProgressBar percent={0} />
+                  </Styled.ProgressForm>
+                )}
             </>
           ) : (
             <CheckListCard

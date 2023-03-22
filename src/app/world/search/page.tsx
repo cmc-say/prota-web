@@ -8,10 +8,10 @@ import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
+import { useRecoilValueLoadable } from "recoil";
 
 export default function PopularWorld() {
-  const worlds = useRecoilValue(AtomRealTimeWorld);
+  const worlds = useRecoilValueLoadable(AtomRealTimeWorld);
 
   return (
     <Styled.LWrapper>
@@ -33,9 +33,12 @@ export default function PopularWorld() {
             실시간 세계관 확인
           </Text>
           <Styled.WorldGapList>
-            {worlds.map((item, index) => (
-              <WorldCard key={item.worldId} data={item} />
-            ))}
+            {worlds.state === "hasValue" &&
+              worlds
+                .getValue()
+                .map((item, index) => (
+                  <WorldCard key={item.worldId} data={item} />
+                ))}
           </Styled.WorldGapList>
         </Styled.Container>
       </Layout.Mobile>

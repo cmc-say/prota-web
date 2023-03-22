@@ -14,7 +14,11 @@ import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
 import { useMemo, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilValue,
+  useRecoilValueLoadable,
+  useSetRecoilState,
+} from "recoil";
 
 const tagColor = [
   {
@@ -40,10 +44,10 @@ const tagColor = [
 ];
 
 export default function SearchWorld() {
-  const popularHashtag = useRecoilValue(AtomPopularHashtagSelector);
+  const popularHashtag = useRecoilValueLoadable(AtomPopularHashtagSelector);
   const [search, setSearch] = useState("");
   const searchWorld = useSetRecoilState(AtomSearchKeyword);
-  const searchWorldData = useRecoilValue(AtomSearchWorldSelector);
+  const searchWorldData = useRecoilValueLoadable(AtomSearchWorldSelector);
 
   useMemo(() => {
     if (!search) searchWorld("");
@@ -64,11 +68,13 @@ export default function SearchWorld() {
               onChange={setSearch}
             />
           </Header>
-          {searchWorldData.length ? (
+          {searchWorldData.state === "hasValue" &&
+          searchWorldData.getValue().length ? (
             <Styled.WorldList>
-              {searchWorldData.map((item) => (
-                <WorldCard key={item.worldId} data={item} />
-              ))}
+              {searchWorldData.state === "hasValue" &&
+                searchWorldData
+                  .getValue()
+                  .map((item) => <WorldCard key={item.worldId} data={item} />)}
             </Styled.WorldList>
           ) : (
             <>
@@ -76,12 +82,15 @@ export default function SearchWorld() {
                 #실시간 인기 해시태그
               </Text>
               <Styled.TagList>
-                {popularHashtag.map((item, index) => (
-                  <TagIcon
-                    key={index}
-                    item={{ ...item, ...tagColor[index % 5] }}
-                  />
-                ))}
+                {popularHashtag.state === "hasValue" &&
+                  popularHashtag
+                    .getValue()
+                    .map((item, index) => (
+                      <TagIcon
+                        key={index}
+                        item={{ ...item, ...tagColor[index % 5] }}
+                      />
+                    ))}
               </Styled.TagList>
             </>
           )}

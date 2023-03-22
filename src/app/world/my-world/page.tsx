@@ -6,7 +6,12 @@ import { WorldCard } from "../../components/world/WorldCard";
 import { Layout } from "@/styled/layout";
 import { WorldCharacter } from "../../components/world/WorldCharacter";
 import { CreateWorld } from "../../components/world/CreateWorld";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useRecoilValue,
+  useRecoilValueLoadable,
+  useSetRecoilState,
+} from "recoil";
 import {
   AtomAddCharacterWorld,
   AtomCharacterWorldsSelector,
@@ -47,9 +52,20 @@ const mockCharacters = {
 };
 
 export default function World() {
-  const characters = useRecoilValue(AtomAllCharacters);
-  const [select, setSelect] = useRecoilState(AtomSelectCharacterId);
-  const worlds = useRecoilValue(AtomCharacterIdTOWorlds);
+  const [select, setSelect] = useRecoilState(AtomSelectedCharacterIdState);
+  const [characters, setCharacters] = useRecoilState(AtomCharacters);
+  const worlds = useRecoilValueLoadable(AtomCharacterWorldsSelector);
+  const setCharacterWorlds = useSetRecoilState(AtomAddCharacterWorld);
+
+  useEffect(() => {
+    if (mockCharacters.status) {
+      setCharacters(mockCharacters.data);
+    }
+  }, []);
+
+  useEffect(() => {
+    setCharacterWorlds(select);
+  }, [select, characters]);
 
   return (
     <Styled.LWrapper>
@@ -61,17 +77,20 @@ export default function World() {
                 <WorldCharacter
                   onClick={() => setSelect(index)}
                   isSelected={select === index}
-                  key={item.avatarId}
-                  src={item.avatarImg}
-                  value={item.avatarName}
+                  key={item.characterId}
+                  src={item.characterImg}
+                  value={item.characterName}
                 />
               ))}
               <WorldCharacter src={"/icons/character_add.svg"} value={"추가"} />
             </Styled.CharacterList>
             <Styled.WorldGapList>
-              {worlds?.map((item: any) => (
-                <WorldCard key={item.worldId} data={item} />
-              ))}
+              {worlds.state === "hasValue" &&
+                worlds
+                  .getValue()
+                  ?.map((item: any) => (
+                    <WorldCard key={item.worldId} data={item} />
+                  ))}
               <CreateWorld />
             </Styled.WorldGapList>
           </Styled.Container>
