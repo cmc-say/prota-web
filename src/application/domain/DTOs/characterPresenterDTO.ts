@@ -1,1 +1,1 @@
-interface CharacterPresenterDTO {}
+export interface CharacterPresenterDTO {}
