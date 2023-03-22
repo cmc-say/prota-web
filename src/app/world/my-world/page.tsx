@@ -52,20 +52,9 @@ const mockCharacters = {
 };
 
 export default function World() {
-  const [select, setSelect] = useRecoilState(AtomSelectedCharacterIdState);
-  const [characters, setCharacters] = useRecoilState(AtomCharacters);
-  const worlds = useRecoilValueLoadable(AtomCharacterWorldsSelector);
-  const setCharacterWorlds = useSetRecoilState(AtomAddCharacterWorld);
-
-  useEffect(() => {
-    if (mockCharacters.status) {
-      setCharacters(mockCharacters.data);
-    }
-  }, []);
-
-  useEffect(() => {
-    setCharacterWorlds(select);
-  }, [select, characters]);
+  const characters = useRecoilValueLoadable(AtomAllCharacters);
+  const [select, setSelect] = useRecoilState(AtomSelectCharacterId);
+  const worlds = useRecoilValueLoadable(AtomCharacterIdTOWorlds);
 
   return (
     <Styled.LWrapper>
@@ -73,22 +62,27 @@ export default function World() {
         <Layout.FlexColumn>
           <Styled.Container>
             <Styled.CharacterList>
-              {characters.map((item, index) => (
-                <WorldCharacter
-                  onClick={() => setSelect(index)}
-                  isSelected={select === index}
-                  key={item.characterId}
-                  src={item.characterImg}
-                  value={item.characterName}
-                />
-              ))}
+              {characters.state === "hasValue" &&
+                characters.getValue().length &&
+                characters
+                  .getValue()
+                  .map((item, index) => (
+                    <WorldCharacter
+                      onClick={() => setSelect(index)}
+                      isSelected={select === index}
+                      key={item.avatarId}
+                      src={item.avatarImg}
+                      value={item.avatarName}
+                    />
+                  ))}
               <WorldCharacter src={"/icons/character_add.svg"} value={"추가"} />
             </Styled.CharacterList>
             <Styled.WorldGapList>
               {worlds.state === "hasValue" &&
+                worlds.getValue().length &&
                 worlds
                   .getValue()
-                  ?.map((item: any) => (
+                  .map((item: any) => (
                     <WorldCard key={item.worldId} data={item} />
                   ))}
               <CreateWorld />
