@@ -9,21 +9,13 @@ export default class CharacterService {
     this._characterAPIService = new CharacterAPIService();
     this._worldAPIService = new WorldAPIService();
   }
-  createWorld() {
-    this._worldAPIService.createWorld();
-  }
+  createWorld() {}
 
-  getAllWorldList() {
-    return this._characterAPIService.getCharacterInfo();
-  }
+  getAllWorldList() {}
 
-  getCharacterInfo() {
-    return this._characterAPIService.getCharacterInfo();
-  }
+  getCharacterInfo() {}
 
-  checkRoutine() {
-    this._characterAPIService.checkTodo();
-  }
+  checkRoutine() {}
 
   updateWorld() {}
   deleteWorld() {}

@@ -10,37 +10,21 @@ export default class UserService {
     return this._userAPIService.getAllCharacterList({});
   }
 
-  reportUser() {
-    return this._userAPIService.reportUser({});
-  }
+  reportUser() {}
 
-  isCheckCharacterExist() {
-    return this._userAPIService.isCheckCharacterExist({});
-  }
+  isCheckCharacterExist() {}
 
-  blockUser() {
-    return this._userAPIService.blockUser({});
-  }
+  blockUser() {}
 
-  addCharacter() {
-    return this._userAPIService.addCharacter({});
-  }
+  addCharacter() {}
 
-  updateCharacter() {
-    return this._userAPIService.updateCharacter({});
-  }
+  updateCharacter() {}
 
-  updateCharacterImg() {
-    return this._userAPIService.updateCharacterImg({});
-  }
+  updateCharacterImg() {}
 
-  removeCharacter() {
-    return this._userAPIService.removeCharacter({});
-  }
+  removeCharacter() {}
 
-  addTodyComment() {
-    return this._userAPIService.addTodyComment({});
-  }
+  addTodyComment() {}
 
   getIncludeWorlds() {
     // 유저의 모든 세계관은 없다..

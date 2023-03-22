@@ -6,11 +6,7 @@ export default class WorldService {
     this._worldAPIService = new WorldAPIService();
   }
 
-  getAllWorldList() {
-    this._worldAPIService.getAllWorlds();
-  }
+  getAllWorldList() {}
 
-  searchWorld() {
-    this._worldAPIService.searchWorld();
-  }
+  searchWorld() {}
 }
