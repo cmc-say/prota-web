@@ -3,7 +3,8 @@
 import { ProgressBar } from "@/app/components/ProgressBar";
 import { Header } from "@/app/components/header/Header";
 import { WorldCard } from "@/app/components/world/WorldCard";
-import { mockupData } from "@/app/world/my-world/page";
+import { mockupData } from "@/app/world/my-world/mock";
+
 import { ColorType } from "@/styled/color.type";
 import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";

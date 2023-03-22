@@ -16,7 +16,6 @@ import { Header } from "@/app/components/header/Header";
 import { SubFooter } from "@/app/components/world/SubFooter";
 import { FooterBtn } from "@/app/components/world/FooterBtn";
 import { AvatarMock } from "@/app/mocks/homeMocks";
-import { EmptyCharacterCard } from "@/app/home/page";
 
 export default function CreateWorldFour() {
   return (
