@@ -12,46 +12,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import { ColorType } from "@/styled/color.type";
 import { useState } from "react";
-import { Theme } from "@/styled/theme";
 import { Toggle } from "../components/home/Toggle";
 import { CheckListCard } from "../components/home/CheckListCard";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { onBoardState } from "../onboard/store/onBoardStore";
-import { TopBar } from "../components/onboard/TopBar";
+import { useRecoilValue } from "recoil";
 import { ProgressBar } from "../components/ProgressBar";
 import { Header } from "../components/header/Header";
-import Link from "next/link";
+
 import { AlarmDot } from "../components/home/AlarmDot";
 import { AvatarMock } from "../mocks/homeMocks";
 import { AtomAllCharacters } from "../atoms/Character";
-
-const CardCard = styled.div`
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  gap: 20px;
-
-  width: 290px;
-  height: 404px;
-
-  border: 2px dashed #6a7395;
-  border-radius: 16px;
-
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-`;
-
-const FDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 
 export default function HomePage() {
   const characters = useRecoilValue(AtomAllCharacters);
@@ -149,39 +118,4 @@ const Styled = HomeStyled;
 const GraphText = styled(Text)`
   display: inline-block;
   width: 286px;
-`;
-
-const ProgressText = styled(Text)<{ percent: number }>`
-  position: absolute;
-  bottom: -4px;
-  left: ${({ percent }) => `calc(${Math.max(percent, 9)}% - 20px)`};
-  z-index: 10;
-`;
-
-const Container = styled.div`
-  margin: 8px auto 0px;
-
-  height: 14px;
-  width: 286px;
-  box-sizing: border-box;
-  position: relative;
-`;
-
-const BaseBox = styled.div`
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: 999px;
-  transition: width 1s ease-in-out;
-`;
-
-const Background = styled(BaseBox)`
-  background: grey;
-  width: 100%;
-`;
-
-const Progress = styled(BaseBox)<{ percent: number }>`
-  background: ${ColorType.SECONDARY1};
-  width: ${({ percent }) => percent}%;
 `;

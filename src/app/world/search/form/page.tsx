@@ -16,59 +16,6 @@ import styled from "@emotion/styled";
 import { useMemo, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-const mockSearch = [
-  {
-    worldId: 1,
-    worldName: "명화가 살아있다.",
-    worldUserLimit: 10,
-    worldImg: "/icons/명화1.svg",
-    worldStartDate: "2023-02-21T00:00:00",
-    worldEndDate: "2023-03-21T00:00:00",
-    hashtags: [
-      {
-        worldHashtagId: 1,
-        hashtagId: 1,
-        hashtagName: "명화모임",
-      },
-      {
-        worldHashtagId: 2,
-        hashtagId: 2,
-        hashtagName: "자기관리",
-      },
-      {
-        worldHashtagId: 3,
-        hashtagId: 3,
-        hashtagName: "공부",
-      },
-      {
-        worldHashtagId: 4,
-        hashtagId: 4,
-        hashtagName: "외국어",
-      },
-    ],
-    worldHostUserId: 1,
-    worldNotice: "공지",
-    worldPassword: "123",
-    worldAvatars: [
-      {
-        worldAvatarId: 1,
-        worldId: 1,
-        avatarId: 1,
-      },
-      {
-        worldAvatarId: 3,
-        worldId: 1,
-        avatarId: 2,
-      },
-      {
-        worldAvatarId: 4,
-        worldId: 1,
-        avatarId: 3,
-      },
-    ],
-  },
-];
-
 const tagColor = [
   {
     color: ColorType.NEUTRAL00,
