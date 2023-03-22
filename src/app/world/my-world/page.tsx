@@ -51,10 +51,6 @@ export default function World() {
   const [select, setSelect] = useRecoilState(AtomSelectCharacterId);
   const worlds = useRecoilValue(AtomCharacterIdTOWorlds);
 
-  // useEffect(() => {
-  //   setCharacterWorlds(select);
-  // }, [select, characters]);
-
   return (
     <Styled.LWrapper>
       <Layout.Mobile>
