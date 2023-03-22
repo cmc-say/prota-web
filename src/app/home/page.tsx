@@ -6,17 +6,13 @@ import { Text, TextSizeType } from "@/styled/typography";
 import { CharacterCard } from "../components/home/CharacterCard";
 import { css } from "@emotion/css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/swiper.css";
-import "./swiper.add.css";
-import "swiper/css/pagination";
-
 import { Pagination } from "swiper";
 import { ColorType } from "@/styled/color.type";
 import { useState } from "react";
 import { Theme } from "@/styled/theme";
 import { Toggle } from "../components/home/Toggle";
 import { CheckListCard } from "../components/home/CheckListCard";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { onBoardState } from "../onboard/store/onBoardStore";
 import { TopBar } from "../components/onboard/TopBar";
 import { ProgressBar } from "../components/ProgressBar";
@@ -24,8 +20,53 @@ import { Header } from "../components/header/Header";
 import Link from "next/link";
 import { AlarmDot } from "../components/home/AlarmDot";
 import { AvatarMock } from "../mocks/homeMocks";
+import { AtomAllCharacters } from "../atoms/Character";
+
+export const EmptyCharacterCard = () => {
+  return (
+    <CardCard>
+      <FDiv>
+        <Text color={ColorType.NEUTRAL100} type={TextSizeType.KR_CAPTION_01}>
+          캐릭터를 직접 만들어봐요!
+        </Text>
+        <Text color={ColorType.NEUTRAL200} type={TextSizeType.KR_SUB_HEAD_01}>
+          + 캐릭터를 추가할래요~!
+        </Text>
+      </FDiv>
+    </CardCard>
+  );
+};
+
+const CardCard = styled.div`
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 20px;
+
+  width: 290px;
+  height: 404px;
+
+  border: 2px dashed #6a7395;
+  border-radius: 16px;
+
+  flex: none;
+  order: 3;
+  flex-grow: 0;
+`;
+
+const FDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default function HomePage() {
+  const characters = useRecoilValue(AtomAllCharacters);
   const [isToggleOn, setToggleState] = useState(true);
   const [index, setIndex] = useState(0);
   const handleToggleContainerClick = () => {
@@ -55,16 +96,17 @@ export default function HomePage() {
                   setIndex(e.activeIndex);
                 }}
               >
-                {AvatarMock.map((avater, index) => (
-                  <SwiperSlide key={avater.avatarName}>
-                    <CharacterCard
-                      index={index + 1}
-                      imageSrc={avater.source}
-                      characterName={avater.avatarName}
-                      characterDescription={avater.avatarDescription}
-                    ></CharacterCard>
-                  </SwiperSlide>
-                ))}
+                {characters.length &&
+                  characters.map((avatar, index) => (
+                    <SwiperSlide key={avatar.avatarName}>
+                      <CharacterCard
+                        index={index + 1}
+                        imageSrc={avatar.avatarImg}
+                        characterName={avatar.avatarName}
+                        characterDescription={avatar.avatarMessage}
+                      ></CharacterCard>
+                    </SwiperSlide>
+                  ))}
                 <SwiperSlide>
                   <EmptyCharacterCard></EmptyCharacterCard>
                 </SwiperSlide>
@@ -154,47 +196,4 @@ const Background = styled(BaseBox)`
 const Progress = styled(BaseBox)<{ percent: number }>`
   background: ${ColorType.SECONDARY1};
   width: ${({ percent }) => percent}%;
-`;
-
-export const EmptyCharacterCard = () => {
-  return (
-    <CardCard>
-      <FDiv>
-        <Text color={ColorType.NEUTRAL100} type={TextSizeType.KR_CAPTION_01}>
-          캐릭터를 직접 만들어봐요!
-        </Text>
-        <Text color={ColorType.NEUTRAL200} type={TextSizeType.KR_SUB_HEAD_01}>
-          + 캐릭터를 추가할래요~!
-        </Text>
-      </FDiv>
-    </CardCard>
-  );
-};
-
-const CardCard = styled.div`
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  gap: 20px;
-
-  width: 290px;
-  height: 404px;
-
-  border: 2px dashed #6a7395;
-  border-radius: 16px;
-
-  flex: none;
-  order: 3;
-  flex-grow: 0;
-`;
-
-const FDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;

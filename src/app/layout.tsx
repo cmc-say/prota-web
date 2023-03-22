@@ -1,5 +1,8 @@
 "use client";
 
+import "swiper/swiper.css";
+import "./swiper.add.css";
+import "swiper/css/pagination";
 import { useEffect } from "react";
 import "./globals.css";
 import { RecoilRoot } from "recoil";
