@@ -24,21 +24,21 @@ export default function WorldInfo() {
             <BoxForm>
               <InputBox
                 placeholder="현재 세계관 이름 없음"
-                onChange={setName}
+                onChange={(e) => setName(e.target.value)}
                 value={name}
                 label="세계관 이름"
                 maxLength={15}
               />
               <InputBox
                 placeholder="현재 헤시태그 없음"
-                onChange={setHashTag}
+                onChange={(e) => setHashTag(e.target.value)}
                 value={hashTag}
                 label="해시태그"
                 maxLength={20}
               />
               <InputBox
                 placeholder="현재 비밀번호 없음"
-                onChange={setPassword}
+                onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 label="비밀번호 설정"
               />
