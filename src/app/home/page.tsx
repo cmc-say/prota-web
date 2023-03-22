@@ -3,7 +3,10 @@
 import styled from "@emotion/styled";
 import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";
-import { CharacterCard } from "../components/home/CharacterCard";
+import {
+  CharacterCard,
+  EmptyCharacterCard,
+} from "../components/home/CharacterCard";
 import { css } from "@emotion/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
