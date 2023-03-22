@@ -19,7 +19,6 @@ import { ProgressBar } from "../components/ProgressBar";
 import { Header } from "../components/header/Header";
 
 import { AlarmDot } from "../components/home/AlarmDot";
-import { AvatarMock } from "../mocks/homeMocks";
 import { AtomAllCharacters } from "../atoms/Character";
 
 export default function HomePage() {
@@ -68,7 +67,7 @@ export default function HomePage() {
                   <EmptyCharacterCard></EmptyCharacterCard>
                 </SwiperSlide>
               </Swiper>
-              {index < AvatarMock.length && (
+              {index < characters.length && (
                 <Styled.ProgressForm>
                   <GraphText
                     color={ColorType.NEUTRAL00}
@@ -76,7 +75,7 @@ export default function HomePage() {
                   >
                     캐릭터 과몰입 그래프
                   </GraphText>
-                  <ProgressBar percent={AvatarMock[index].progressNumber} />
+                  <ProgressBar percent={0} />
                 </Styled.ProgressForm>
               )}
             </>
