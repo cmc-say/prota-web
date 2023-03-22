@@ -13,6 +13,7 @@ import {
   AtomCharacters,
   AtomSelectedCharacterIdState,
 } from "@/app/atoms/atom";
+import { mockupData } from "./mock";
 
 const mockCharacters = {
   status: 200,
