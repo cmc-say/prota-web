@@ -32,7 +32,7 @@ export default function MakeCharacterOnBoard() {
   const addAvatar = async () => {
     const character = new CharacterAPIService();
     const res = await character.addCharacter({
-      file,
+      avatarImg: file,
       avatarName,
       avatarMessage,
     });

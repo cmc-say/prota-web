@@ -169,7 +169,7 @@ export type ParticipateWorldRes = {
 };
 
 export type AddCharacterReq = {
-  file: any;
+  avatarImg: any;
   avatarName: string;
   avatarMessage: string;
 };

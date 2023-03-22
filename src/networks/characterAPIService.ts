@@ -35,13 +35,9 @@ export default class CharacterAPIService extends APINetworkService {
   async addCharacter(req: AddCharacterReq): Promise<AddCharacterRes> {
     const data = new FormData();
 
-    const formData = JSON.stringify({
-      avatarName: req.avatarName,
-      avatarMessage: req.avatarMessage,
-    });
-
-    data.append("file", req.file);
-    data.append("data ", formData);
+    data.append("avatarImg", req.avatarImg);
+    data.append("avatarName", req.avatarName);
+    data.append("avatarMessage", req.avatarMessage);
 
     const res = await axiosMediaInstance.post(`/avatar`, data);
     return res.data;
