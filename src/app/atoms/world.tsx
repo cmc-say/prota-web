@@ -3,6 +3,7 @@
 import { atom, selector } from "recoil";
 import WorldAPIService from "@/networks/worldAPIService";
 import { GetHashtagListRes, GetWorldListRes } from "@/networks/network";
+import CharacterAPIService from "@/networks/characterAPIService";
 
 // Search
 export const AtomPopularHashtagSelector = selector<GetHashtagListRes>({
@@ -25,13 +26,31 @@ export const AtomSearchWorldSelector = selector<GetWorldListRes>({
     const service = new WorldAPIService();
     const keyword = get(AtomSearchKeyword);
     if (!keyword) return [];
-    console.log("keyword", keyword);
 
     const searchWorld: GetWorldListRes = await service.searchWorld({
       keyword,
     });
-    console.log(searchWorld);
 
     return searchWorld || [];
+  },
+});
+
+// characterId to Worlds
+export const AtomSelectCharacterId = atom({
+  key: "selectCharacterId",
+  default: 0,
+});
+
+export const AtomCharacterIdTOWorlds = selector({
+  key: "characterIdToWorlds",
+  get: async ({ get }): Promise<GetWorldListRes | []> => {
+    const service = new CharacterAPIService();
+    const characterId = get(AtomSelectCharacterId);
+
+    const worlds = await service.getAllCharacterWorlds({
+      avatarId: characterId,
+    });
+
+    return worlds || [];
   },
 });

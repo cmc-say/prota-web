@@ -88,12 +88,14 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
         {characterDescription}
       </TextWrapper.DescriptionText>
 
-      <TextWrapper.RouteText
-        color={ColorType.NEUTRAL00}
-        type={TextSizeType.KR_CAPTION_01}
-      >
-        세계관으로 이동 {`>`}
-      </TextWrapper.RouteText>
+      <Link href={"/world/my-world"}>
+        <TextWrapper.RouteText
+          color={ColorType.NEUTRAL00}
+          type={TextSizeType.KR_CAPTION_01}
+        >
+          세계관으로 이동 {`>`}
+        </TextWrapper.RouteText>
+      </Link>
       <Link href={"/home/1/edit"}>
         <CardEditContainer>
           <Image height={24} width={24} src={"/images/edit_icon.png"} alt="" />

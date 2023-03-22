@@ -13,6 +13,7 @@ import {
   GetCharacterInfoRes,
   GetTodayWordRes,
   GetAvatarAllWorldTodos,
+  GetWorldListRes,
 } from "./network";
 
 import {
@@ -28,7 +29,9 @@ export default class CharacterAPIService extends APINetworkService {
     const res = await axiosinstance.get(`/avatar/${req.avatarId}`);
     return res.data.data;
   }
-  async getAllCharacterWorlds(req: GetCharacterInfoReq): Promise<World[]> {
+  async getAllCharacterWorlds(
+    req: GetCharacterInfoReq
+  ): Promise<GetWorldListRes> {
     const res = await axiosinstance.get(`/avatar/${req.avatarId}/worlds`);
     return res.data.data;
   }

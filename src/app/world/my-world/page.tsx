@@ -14,6 +14,11 @@ import {
   AtomSelectedCharacterIdState,
 } from "@/app/atoms/atom";
 import { mockupData } from "./mock";
+import { AtomAllCharacters } from "@/app/atoms/Character";
+import {
+  AtomCharacterIdTOWorlds,
+  AtomSelectCharacterId,
+} from "@/app/atoms/world";
 
 const mockCharacters = {
   status: 200,
@@ -42,20 +47,13 @@ const mockCharacters = {
 };
 
 export default function World() {
-  const [select, setSelect] = useRecoilState(AtomSelectedCharacterIdState);
-  const [characters, setCharacters] = useRecoilState(AtomCharacters);
-  const worlds = useRecoilValue(AtomCharacterWorldsSelector);
-  const setCharacterWorlds = useSetRecoilState(AtomAddCharacterWorld);
+  const characters = useRecoilValue(AtomAllCharacters);
+  const [select, setSelect] = useRecoilState(AtomSelectCharacterId);
+  const worlds = useRecoilValue(AtomCharacterIdTOWorlds);
 
-  useEffect(() => {
-    if (mockCharacters.status) {
-      setCharacters(mockCharacters.data);
-    }
-  }, []);
-
-  useEffect(() => {
-    setCharacterWorlds(select);
-  }, [select, characters]);
+  // useEffect(() => {
+  //   setCharacterWorlds(select);
+  // }, [select, characters]);
 
   return (
     <Styled.LWrapper>
@@ -63,13 +61,13 @@ export default function World() {
         <Layout.FlexColumn>
           <Styled.Container>
             <Styled.CharacterList>
-              {mockupData.characters.data.map((item, index) => (
+              {characters.map((item, index) => (
                 <WorldCharacter
                   onClick={() => setSelect(index)}
                   isSelected={select === index}
-                  key={item.characterId}
-                  src={item.characterImg}
-                  value={item.characterName}
+                  key={item.avatarId}
+                  src={item.avatarImg}
+                  value={item.avatarName}
                 />
               ))}
               <WorldCharacter src={"/icons/character_add.svg"} value={"추가"} />
