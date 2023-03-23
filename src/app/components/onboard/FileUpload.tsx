@@ -8,11 +8,12 @@ import { useRef, useState } from "react";
 
 type Props = {
   setValue: (file: File) => void;
+  value?: string | null;
 };
 
-export const FileUpload: React.FC<Props> = ({ setValue }) => {
+export const FileUpload: React.FC<Props> = ({ setValue, value = null }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [imgFile, setImgFile] = useState<string | ArrayBuffer | null>(null);
+  const [imgFile, setImgFile] = useState<string | ArrayBuffer | null>(value);
 
   const InputFileUpload = () => {
     if (imgFile) {

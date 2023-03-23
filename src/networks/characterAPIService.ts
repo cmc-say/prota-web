@@ -48,10 +48,8 @@ export default class CharacterAPIService extends APINetworkService {
 
   async editCharacterInfo(req: EditCharacterInfoReq) {
     const res = await axiosinstance.put(`/avatar/${req.avatarId}/info`, {
-      data: {
-        avatarName: req.avatarName,
-        avatarMessage: req.avatarMessage,
-      },
+      avatarName: req.avatarName,
+      avatarMessage: req.avatarMessage,
     });
     return res.data;
   }

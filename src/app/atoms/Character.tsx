@@ -1,8 +1,13 @@
 "use client";
 
-import { GetUserCharacterRes } from "@/networks/network";
+import CharacterAPIService from "@/networks/characterAPIService";
+import {
+  GetCharacterInfoReq,
+  GetCharacterInfoRes,
+  GetUserCharacterRes,
+} from "@/networks/network";
 import UserApiService from "@/networks/userAPIService";
-import { atom, selector } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 
 export const AtomAllCharacters = selector<GetUserCharacterRes>({
   key: "allCharacters",
@@ -10,8 +15,17 @@ export const AtomAllCharacters = selector<GetUserCharacterRes>({
     const service = new UserApiService();
 
     const Characters = await service.getAllCharacterList({});
-    console.log(Characters);
 
     return Characters || [];
+  },
+});
+
+export const AtomCharacterDetail = selectorFamily({
+  key: "characterDetail",
+  get: (characterId: number) => async (): Promise<GetCharacterInfoRes> => {
+    const service = new CharacterAPIService();
+    const res = await service.getCharacterInfo({ avatarId: characterId });
+
+    return res;
   },
 });

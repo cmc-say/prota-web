@@ -12,6 +12,7 @@ type Props = {
   isBack?: boolean;
   popStack?: number;
   href?: string;
+  onclick?: () => void;
 };
 
 export const FooterBtn: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const FooterBtn: React.FC<Props> = ({
   isBack,
   popStack,
   href = "",
+  onclick,
 }) => {
   const [isKeyUp, setKeyUp] = useState<boolean>(false);
 
@@ -59,7 +61,12 @@ export const FooterBtn: React.FC<Props> = ({
           )}
 
           {isBack ? (
-            <Button onClick={() => router.back()}>
+            <Button
+              onClick={() => {
+                if (onclick) onclick();
+                router.back();
+              }}
+            >
               <Text
                 color={ColorType.NEUTRAL00}
                 type={TextSizeType.KR_SUB_HEAD_01}
@@ -71,6 +78,7 @@ export const FooterBtn: React.FC<Props> = ({
             <Button
               disabled={!href}
               onClick={() => {
+                if (onclick) onclick();
                 if (!popStack) {
                   return;
                 }
