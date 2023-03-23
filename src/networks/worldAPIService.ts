@@ -66,7 +66,7 @@ export default class WorldAPIService extends APINetworkService {
     const res = await axiosinstance.get(`/world/${req.worldId}/avatars`);
     return res.data.data;
   }
-  
+
   async searchWorld(req: SearchWorldReq): Promise<GetWorldListRes> {
     const res = await axiosinstance.get(`/world/search?keyword=${req.keyword}`);
     return res.data.data;
@@ -86,17 +86,17 @@ export default class WorldAPIService extends APINetworkService {
     // return res.data;
   }
   async getRecommendedWorld(): Promise<GetRecommendedWorldRes> {
-    const res = await axiosinstance.post("/world/recommended");
+    const res = await axiosinstance.get("/world/recommended");
     return res.data.data;
   }
 
   async getRecommendedWorldTodo(
     req: GetWorldInfoReq
   ): Promise<GetRecommendedWorldTodosRes> {
-    const res = await axiosinstance.post(
+    const res = await axiosinstance.get(
       `/world/${req.worldId}/todo/recommended`
     );
-    return res.data;
+    return res.data.data;
   }
 
   async getPopularHashtag(): Promise<GetHashtagListRes> {

@@ -3,17 +3,19 @@
 import { ColorType } from "@/styled/color.type";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/styled/button";
 import { WorldRectBox } from "@/app/components/world/WorldRectBox";
 import { Layout } from "@/styled/layout";
 import { Header } from "@/app/components/header/Header";
 import Link from "next/link";
 import { Pagination } from "@/app/components/header/Pagination";
-import { worldMock } from "@/app/mocks/onBoardMocks";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import { AtomRecommendWorldSelector, AtomSelectWorld } from "@/app/atoms/world";
 
 export default function FirstOnBoard() {
-  const [selectedBox, selectBox] = useState<string>();
+  const [selectedBox, selectBox] = useRecoilState(AtomSelectWorld);
+  const recommended = useRecoilValueLoadable(AtomRecommendWorldSelector);
 
   return (
     <Styled.LWrapper>
@@ -24,16 +26,17 @@ export default function FirstOnBoard() {
             세계관 추천 목록이에요.
           </Text>
           <Styled.GridContainer>
-            {worldMock.map((world) => (
-              <WorldRectBox
-                onClick={() => {
-                  selectBox(world.title);
-                }}
-                isSelected={selectedBox === world.title}
-                title={world.title}
-                imageSrc={world.source}
-              ></WorldRectBox>
-            ))}
+            {recommended.state === "hasValue" &&
+              recommended.getValue().map((world) => (
+                <WorldRectBox
+                  onClick={() => {
+                    selectBox(world.recommendedWorldId);
+                  }}
+                  isSelected={selectedBox === world.recommendedWorldId}
+                  title={world.recommendedWorldName}
+                  imageSrc={world.recommendedWorldImg}
+                ></WorldRectBox>
+              ))}
           </Styled.GridContainer>
           <Styled.BottomButtonContainer>
             <Styled.DIYBottomButton>
@@ -74,7 +77,9 @@ const MakeRecommendFirstStyled = {
     /* overflow-y: scroll; */
   `,
   Container: styled.div`
+    height: 100%;
     padding: 24px;
+    padding-bottom: 0px;
     display: flex;
     flex-direction: column;
   `,
@@ -84,7 +89,6 @@ const MakeRecommendFirstStyled = {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    flex: 1;
     overflow: auto;
     padding-bottom: 120px;
   `,

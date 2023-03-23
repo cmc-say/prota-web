@@ -9,9 +9,12 @@ import { ColorType } from "@/styled/color.type";
 
 import { Attainment } from "../components/mypage/Attainment";
 import Link from "next/link";
-import { AvatarMock } from "../mocks/homeMocks";
+import { useRecoilValueLoadable } from "recoil";
+import { AtomAllCharacters } from "../atoms/Character";
 
 export default function MyPage() {
+  const characters = useRecoilValueLoadable(AtomAllCharacters);
+
   return (
     <Styled.LWrapper>
       <Layout.Mobile>
@@ -41,17 +44,20 @@ export default function MyPage() {
             type={TextSizeType.KR_HEAD_03}
             color={ColorType.NEUTRAL00}
           >
-            내 역대 캐릭터 (3)
+            내 역대 캐릭터 (
+            {characters.state === "hasValue" ? characters.getValue().length : 0}
+            )
           </Styled.Title>
           <Styled.GridContainer>
-            {AvatarMock.map((avatar) => (
-              <Link href={"/mypage/1/world"}>
-                <WorldRectBox
-                  title={avatar.avatarName}
-                  imageSrc={avatar.source}
-                ></WorldRectBox>
-              </Link>
-            ))}
+            {characters.state === "hasValue" &&
+              characters.getValue().map((character) => (
+                <Link href={"/mypage/1/world"}>
+                  <WorldRectBox
+                    title={character.avatarName}
+                    imageSrc={character.avatarImg}
+                  ></WorldRectBox>
+                </Link>
+              ))}
           </Styled.GridContainer>
         </Styled.Container>
       </Layout.Mobile>

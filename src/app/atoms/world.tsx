@@ -7,9 +7,14 @@ import {
   GetWorldInfoRes,
   GetWorldListRes,
   getWorldCharacterListRes,
+  GetRecommendedWorldRes,
+  Hashtag,
+  CheckTodoReq,
+  GetRecommendedWorldTodosRes,
 } from "@/networks/network";
 import CharacterAPIService from "@/networks/characterAPIService";
 import UserApiService from "@/networks/userAPIService";
+import { Worlds } from "./atom";
 
 // Search
 export const AtomPopularHashtagSelector = selector<GetHashtagListRes>({
@@ -24,6 +29,61 @@ export const AtomPopularHashtagSelector = selector<GetHashtagListRes>({
 export const AtomSearchKeyword = atom<string>({
   key: "searchKeyword",
   default: "",
+});
+
+export const AtomWorldDescription = atom<string>({
+  key: "worldDescription",
+});
+
+export const AtomWorldHashtag = atom<string>({
+  key: "worldHashtag",
+});
+
+export const AtomSelectWorld = atom<number | null>({
+  key: "selectWorld",
+  default: null,
+});
+
+export const AtomRecommendedWorlds = atom<Worlds>({
+  key: "atomRecommendedWorlds",
+  default: [],
+});
+
+export const AtomRecommendWorldSelector = selector<GetRecommendedWorldRes>({
+  key: "recommendWorldSelector",
+  get: async () => {
+    const service = new WorldAPIService();
+
+    const recWorld: GetRecommendedWorldRes =
+      await service.getRecommendedWorld();
+
+    return recWorld || [];
+  },
+});
+
+export const AtomRecommendedTodo = atom<string[]>({
+  key: "atomRecommendedTodo",
+  default: [],
+});
+
+export const AtomRecommendTodo = selector<GetRecommendedWorldTodosRes>({
+  key: "recommendTodo",
+  get: async ({ get }) => {
+    const service = new WorldAPIService();
+
+    const id = get(AtomSelectWorld);
+
+    if (!id) {
+      return [];
+    }
+
+    const recWorld: GetRecommendedWorldTodosRes =
+      await service.getRecommendedWorldTodo({
+        worldId: id,
+      });
+
+    return recWorld || [];
+  },
 });
 
 export const AtomSearchWorldSelector = selector<GetWorldListRes>({

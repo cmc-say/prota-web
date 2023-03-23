@@ -1,19 +1,25 @@
 "use client";
 
+import {
+  AtomRecommendedTodo,
+  AtomRecommendTodo,
+  AtomRecommendWorldSelector,
+} from "@/app/atoms/world";
 import { Header } from "@/app/components/header/Header";
 import { Pagination } from "@/app/components/header/Pagination";
 import { AddCheckList } from "@/app/components/onboard/AddCheckList";
 import { FooterBtn } from "@/app/components/world/FooterBtn";
-import { checkListMock } from "@/app/mocks/onBoardMocks";
 import { Button } from "@/styled/button";
 import { ColorType } from "@/styled/color.type";
 import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React from "react";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
 
 export default function MakeRecommendSecond() {
-  const [selectedCheckList, setCheckList] = useState<string[]>([]);
+  const [selectedCheckList, setCheckList] = useRecoilState(AtomRecommendedTodo);
+  const recommended = useRecoilValueLoadable(AtomRecommendTodo);
 
   return (
     <Styled.LWrapper>
@@ -34,44 +40,45 @@ export default function MakeRecommendSecond() {
             해당 세계관의 추천 체크리스트에요! (선택 가능)
           </Styled.SubTitle>
           <Styled.ButtonContainer>
-            {checkListMock.map((checkList) => (
-              <Styled.CheckListButton
-                onClick={() => {
-                  setCheckList((prev) => {
-                    const existNumber = prev.findIndex(
-                      (check) => check === checkList.title
-                    );
-                    let newList = [...prev];
+            {recommended.state === "hasValue" &&
+              recommended.getValue().map((checkList) => (
+                <Styled.CheckListButton
+                  onClick={() => {
+                    setCheckList((prev) => {
+                      const existNumber = prev.findIndex(
+                        (check) => check === checkList.recommendedTodoContent
+                      );
+                      let newList = [...prev];
 
-                    if (existNumber !== -1) {
-                      newList.splice(existNumber, 1);
-                    } else {
-                      newList.push(checkList.title);
-                    }
+                      if (existNumber !== -1) {
+                        newList.splice(existNumber, 1);
+                      } else {
+                        newList.push(checkList.recommendedTodoContent);
+                      }
 
-                    return newList;
-                  });
-                }}
-                isSelected={
-                  selectedCheckList.findIndex(
-                    (check) => check === checkList.title
-                  ) !== -1
-                }
-              >
-                <Text
-                  color={
+                      return newList;
+                    });
+                  }}
+                  isSelected={
                     selectedCheckList.findIndex(
-                      (check) => check === checkList.title
+                      (check) => check === checkList.recommendedTodoContent
                     ) !== -1
-                      ? ColorType.SECONDARY1
-                      : ColorType.NEUTRAL100
                   }
-                  type={TextSizeType.KR_BODY_01}
                 >
-                  {checkList.title}
-                </Text>
-              </Styled.CheckListButton>
-            ))}
+                  <Text
+                    color={
+                      selectedCheckList.findIndex(
+                        (check) => check === checkList.recommendedTodoContent
+                      ) !== -1
+                        ? ColorType.SECONDARY1
+                        : ColorType.NEUTRAL100
+                    }
+                    type={TextSizeType.KR_BODY_01}
+                  >
+                    {checkList.recommendedTodoContent}
+                  </Text>
+                </Styled.CheckListButton>
+              ))}
           </Styled.ButtonContainer>
           <Styled.SubTitle
             color={ColorType.NEUTRAL00}

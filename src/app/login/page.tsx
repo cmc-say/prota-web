@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { LoginRequired } from "../atoms/atom";
 import { useRouter } from "next/navigation";
 import { AxiosError } from "axios";
-import { MessageType, PostMessage } from "../message.type";
+import { MessageType } from "../message.type";
 import { Layout } from "@/styled/layout";
 
 export default function LoginPage() {
@@ -33,7 +33,7 @@ export default function LoginPage() {
 
           // @ts-ignore: Unreachable code error
           window.ReactNativeWebView?.postMessage(data);
-          res.isSignuped ? router.replace("/home") : router.push("/onboard");
+          res.isSignuped ? router.replace("/onboard") : router.push("/onboard");
         })
         .catch((e: AxiosError) => {
           console.error(e);
