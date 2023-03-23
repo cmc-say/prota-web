@@ -4,8 +4,7 @@ import { AtomWorldDetail } from "@/app/atoms/world";
 import { Header } from "@/app/components/header/Header";
 import { FooterBtn } from "@/app/components/world/FooterBtn";
 import { WorldCharacter } from "@/app/components/world/WorldCharacter";
-import { avatarMocks } from "@/app/mocks/avatar_mock";
-import { AvatarMock } from "@/app/mocks/homeMocks";
+
 import { ColorType } from "@/styled/color.type";
 import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";
