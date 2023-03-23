@@ -15,7 +15,7 @@ function Checkbox({ text, isSelected }: { text: string; isSelected: boolean }) {
           <StyledImage
             width={10}
             height={9}
-            src={"/images/check_png.png"}
+            src={"/static/images/check_png.png"}
             alt="check"
           ></StyledImage>
         )}

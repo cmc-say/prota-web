@@ -100,7 +100,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
       </Link>
       <Link href={`/home/${characterId}/edit`}>
         <CardEditContainer>
-          <Image height={24} width={24} src={"/images/edit_icon.png"} alt="" />
+          <Image height={24} width={24} src={"/static/images/edit_icon.png"} alt="" />
         </CardEditContainer>
       </Link>
     </CardContainer>

@@ -40,7 +40,7 @@ const mockCharacters = {
     {
       characterId: 2,
       characterName: "짱구",
-      characterImg: "/images/avatar_mock/blue_avatar.png",
+      characterImg: "/static/images/avatar_mock/blue_avatar.png",
       characterMessage: "캐릭터 상태메세지",
     },
   ],
