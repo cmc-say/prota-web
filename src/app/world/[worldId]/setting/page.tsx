@@ -16,7 +16,7 @@ export default function WorldSetting() {
           <Container>
             <Header></Header>
             <div style={{ width: "100%", height: "144px" }}>
-              <WorldImg fill src={"/static/images/world_img.png"} alt="world_img" />
+              <WorldImg fill src={"/public/static/images/world_img.png"} alt="world_img" />
             </div>
             <WorldInfo></WorldInfo>
             <FooterBtn
