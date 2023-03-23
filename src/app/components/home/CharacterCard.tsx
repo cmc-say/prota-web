@@ -10,7 +10,7 @@ interface CharacterCardProps {
   characterName: string;
   characterDescription: string;
   index: number;
-  characterId: number;
+  characterId?: number;
 }
 
 const ColorIndex: Record<number, string> = {
@@ -67,7 +67,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   characterName,
   characterDescription,
   index,
-  characterId,
+  characterId = 0,
 }) => {
   return (
     <CardContainer index={index - 1} imageSrc={imageSrc}>
