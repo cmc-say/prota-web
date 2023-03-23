@@ -33,10 +33,12 @@ export const AtomSearchKeyword = atom<string>({
 
 export const AtomWorldDescription = atom<string>({
   key: "worldDescription",
+  default: "",
 });
 
 export const AtomWorldHashtag = atom<string>({
   key: "worldHashtag",
+  default: "",
 });
 
 export const AtomSelectWorld = atom<number | null>({
