@@ -41,7 +41,7 @@ type CharacterIdWorlds = {
 export type LoginRequired = {
   deviceToken: string;
   socialId: string;
-  socialType: "kakao" | "apple";
+  socialType: "kakao" | "apple" | "google";
 };
 
 export const AtomSelectedCharacterIdState = atom<number>({

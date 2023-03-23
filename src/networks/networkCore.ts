@@ -1,16 +1,14 @@
 import axios from "axios";
 
 export const axiosinstance = axios.create({
-  baseURL:
-    "https://ec2-3-36-175-96.ap-northeast-2.compute.amazonaws.com/api/v1/",
+  baseURL: "https://s0pterest.shop/api/v1",
   withCredentials: true,
 });
 export const axiosMediaInstance = axios.create({
   headers: {
     "Content-Type": "multipart/form-data",
   },
-  baseURL:
-    "https://ec2-3-36-175-96.ap-northeast-2.compute.amazonaws.com/api/v1/",
+  baseURL: "https://s0pterest.shop/api/v1",
   withCredentials: true,
 });
 
