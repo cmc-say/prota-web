@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-// import { AtomWorldDescription, AtomWorldHashtag } from "@/app/atoms/world";
+import React from "react";
+import { AtomWorldDescription, AtomWorldHashtag } from "@/app/atoms/world";
 import { Header } from "@/app/components/header/Header";
 import { Pagination } from "@/app/components/header/Pagination";
 import { FooterBtn } from "@/app/components/world/FooterBtn";
@@ -10,11 +10,11 @@ import { ColorType } from "@/styled/color.type";
 import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
-// import { useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 
 export default function ThirdOnBoard() {
-  const [firstValue, setFirstValue] = useState("");
-  const [secondValue, setSecondValue] = useState("");
+  const [firstValue, setFirstValue] = useRecoilState(AtomWorldDescription);
+  const [secondValue, setSecondValue] = useRecoilState(AtomWorldHashtag);
 
   return (
     <Styled.LWrapper>
