@@ -1,9 +1,15 @@
 "use client";
 
-import { atom, selector } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 import WorldAPIService from "@/networks/worldAPIService";
-import { GetHashtagListRes, GetWorldListRes } from "@/networks/network";
+import {
+  GetHashtagListRes,
+  GetWorldInfoRes,
+  GetWorldListRes,
+  getWorldCharacterListRes,
+} from "@/networks/network";
 import CharacterAPIService from "@/networks/characterAPIService";
+import UserApiService from "@/networks/userAPIService";
 
 // Search
 export const AtomPopularHashtagSelector = selector<GetHashtagListRes>({
@@ -53,4 +59,41 @@ export const AtomCharacterIdTOWorlds = selector({
 
     return worlds || [];
   },
+});
+
+// createWorld
+
+export const AtomCreateWorldData = atom({
+  key: "createWorldData",
+  default: {
+    worldName: "",
+    worldUserLimit: 0,
+    hashtags: [],
+    worldPassword: "",
+    worldNotice: "",
+    todos: [],
+    worldImg: "",
+  },
+});
+
+// worldDetail
+
+export const AtomWorldDetail = selectorFamily({
+  key: "worldDetail",
+  get:
+    (worldId: number) =>
+    async (): Promise<{
+      world: GetWorldInfoRes;
+      members: getWorldCharacterListRes;
+      isMember: boolean;
+    }> => {
+      const service = new WorldAPIService();
+      const userService = new UserApiService();
+      const res = await service.getWorldInfoById({ worldId });
+      const membersRes = await service.getWorldCharacters({ worldId });
+      const { isMember } = await userService.isCheckCharacterExist({ worldId });
+
+      const response = { world: res, members: membersRes, isMember };
+      return response;
+    },
 });

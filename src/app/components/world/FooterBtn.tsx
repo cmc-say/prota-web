@@ -20,7 +20,7 @@ export const FooterBtn: React.FC<Props> = ({
   children,
   isBack,
   popStack,
-  href = "/",
+  href = "",
 }) => {
   const [isKeyUp, setKeyUp] = useState<boolean>(false);
 
@@ -69,6 +69,7 @@ export const FooterBtn: React.FC<Props> = ({
             </Button>
           ) : (
             <Button
+              disabled={!href}
               onClick={() => {
                 if (!popStack) {
                   return;
@@ -124,4 +125,11 @@ const Button = styled.button`
   background: #5960ff;
   border-radius: 400px;
   border: none;
+
+  &:disabled {
+    background: ${ColorType.NEUTRAL300};
+    span {
+      color: ${ColorType.NEUTRAL100};
+    }
+  }
 `;
