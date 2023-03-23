@@ -8,19 +8,19 @@ export const mockupData = {
       {
         characterId: 1,
         characterName: "메타몽",
-        characterImg: "/public/static/images/meta_mock.png",
+        characterImg: "/static/images/meta_mock.png",
         characterMessage: "캐릭터 상태메세지",
       },
       {
         characterId: 2,
         characterName: "대머리",
-        characterImg: "/public/static/images/munk_avatar_mock.png",
+        characterImg: "/static/images/munk_avatar_mock.png",
         characterMessage: "캐릭터 상태메세지",
       },
       {
         characterId: 3,
         characterName: "짱구",
-        characterImg: "/public/static/images/sinnoske_avatar_mock.png",
+        characterImg: "/static/images/sinnoske_avatar_mock.png",
         characterMessage: "캐릭터 상태메세지",
       },
     ],
