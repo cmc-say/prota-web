@@ -59,6 +59,7 @@ export default function HomePage() {
                     <SwiperSlide key={avatar.avatarName}>
                       <CharacterCard
                         index={index + 1}
+                        characterId={avatar.avatarId}
                         imageSrc={avatar.avatarImg}
                         characterName={avatar.avatarName}
                         characterDescription={avatar.avatarMessage}

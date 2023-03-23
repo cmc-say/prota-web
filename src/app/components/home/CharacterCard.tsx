@@ -10,6 +10,7 @@ interface CharacterCardProps {
   characterName: string;
   characterDescription: string;
   index: number;
+  characterId: number;
 }
 
 const ColorIndex: Record<number, string> = {
@@ -66,6 +67,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   characterName,
   characterDescription,
   index,
+  characterId,
 }) => {
   return (
     <CardContainer index={index - 1} imageSrc={imageSrc}>
@@ -96,7 +98,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           세계관으로 이동 {`>`}
         </TextWrapper.RouteText>
       </Link>
-      <Link href={"/home/1/edit"}>
+      <Link href={`/home/${characterId}/edit`}>
         <CardEditContainer>
           <Image height={24} width={24} src={"/images/edit_icon.png"} alt="" />
         </CardEditContainer>
