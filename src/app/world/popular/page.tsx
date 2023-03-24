@@ -158,9 +158,9 @@ export default function PopularWorld() {
             실시간 세계관 확인
           </Text>
           <Styled.WorldGapList>
-            {mockupData.worlds.data.map((item) => (
+            {/* {mockupData.worlds.data.map((item) => (
               <WorldCard key={item.worldId} data={item} />
-            ))}
+            ))} */}
           </Styled.WorldGapList>
         </Styled.Container>
       </Layout.Mobile>

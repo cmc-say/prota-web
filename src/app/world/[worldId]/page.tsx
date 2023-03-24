@@ -30,7 +30,7 @@ export default function WorldDetail({ params: { worldId } }: any) {
               </Text>
             </SubHeader>
             <Date color={ColorType.NEUTRAL00} type={TextSizeType.KR_HEAD_03}>
-              {worldDetail.getValue().world.worldStartDate}
+              {/* {new Date(worldDetail.getValue().world.worldStartDate)} */}
             </Date>
             <div></div>
             <CheckListCharacter>
