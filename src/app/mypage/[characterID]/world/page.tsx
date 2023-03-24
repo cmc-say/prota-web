@@ -46,9 +46,9 @@ export default function MyCharacterWorld({ params: { characterID } }: Props) {
             참여 중인 세계관 (2)
           </Styled.SubTitle>
           <Styled.WorldGapList>
-            {mockupData.worlds.data.map((item) => (
+            {/* {mockupData.worlds.data.map((item) => (
               <WorldCard key={item.worldId} data={item} />
-            ))}
+            ))} */}
           </Styled.WorldGapList>
         </Styled.Container>
       </Layout.Mobile>
