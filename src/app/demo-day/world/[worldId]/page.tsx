@@ -10,13 +10,16 @@ import { ColorType } from "@/styled/color.type";
 import { Layout } from "@/styled/layout";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
-import { useRecoilValueLoadable } from "recoil";
+import { useRecoilRefresher_UNSTABLE, useRecoilValueLoadable } from "recoil";
 import { CMCFooterBtn } from "../../footerBtn/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function WorldDetail({ params: { worldId } }: any) {
+  const router = useRouter();
   const characters = useRecoilValueLoadable(AtomAllCharacters);
   const worldDetail = useRecoilValueLoadable(AtomWorldDetail(worldId));
+  const refresh = useRecoilRefresher_UNSTABLE(AtomWorldDetail(worldId));
 
   const worldIn = async () => {
     const service = new CharacterAPIService();
@@ -24,6 +27,11 @@ export default function WorldDetail({ params: { worldId } }: any) {
       worldId,
       avatarId: characters.getValue()[0].avatarId,
     });
+
+    if (res.statusCode === 201) {
+      refresh();
+      router.back();
+    }
   };
 
   if (worldDetail.state === "hasValue") {
