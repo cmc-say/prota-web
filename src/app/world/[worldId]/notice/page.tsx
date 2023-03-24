@@ -16,10 +16,11 @@ export default function WorldNotice() {
             명화가 살아있다 14
           </Header>
           <WorldNoticeStyled.TextBox />
-          <CheckBoxForm>
-            <CheckList />
-          </CheckBoxForm>
-          <FooterBtn href="/world/1/word-today" subTitle="세계관 체크리스트를 모두 완료했어요, 캐릭터 몰입에 한 걸음!">
+          <CheckBoxForm>{/* <CheckList /> */}</CheckBoxForm>
+          <FooterBtn
+            href="/world/1/word-today"
+            subTitle="세계관 체크리스트를 모두 완료했어요, 캐릭터 몰입에 한 걸음!"
+          >
             오늘의 한 마디 작성할래요!
           </FooterBtn>
         </WorldNoticeStyled.Container>
