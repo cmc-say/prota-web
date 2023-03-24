@@ -17,6 +17,7 @@ interface CheckListCardProps {
 }
 
 export const CheckListCard: React.FC<CheckListCardProps> = ({
+  imageSrc,
   characterName,
   characterDescription,
   index,
