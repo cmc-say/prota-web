@@ -10,7 +10,6 @@ import CharacterAPIService from "@/networks/characterAPIService";
 import { axiosinstance, axiosMediaInstance } from "@/networks/networkCore";
 import { Layout } from "@/styled/layout";
 import styled from "@emotion/styled";
-import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import { Alert } from "../alert/alert";
@@ -32,29 +31,26 @@ export default function MakeCharacterOnBoard() {
     const service = new AuthApiService();
 
     if (loginRes) {
-      service
-        .letsLogin(loginRes)
-        .then((res) => {
-          axiosinstance.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${res.accessToken}`;
-
-          axiosMediaInstance.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${res.accessToken}`;
-
-          localStorage.setItem("accessToken", res.accessToken);
-        })
-        .catch((e: AxiosError) => {
-          console.error(e);
-          if (e.status === 400) {
-            setAlertMessage(e.message);
-            setIsAlert(true);
-            setTimeout(() => {
-              setIsAlert(false);
-            }, 1000);
-          }
-        });
+      try {
+        let res = await service.letsLogin(loginRes);
+        axiosinstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res.accessToken}`;
+        axiosMediaInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res.accessToken}`;
+        localStorage.setItem("accessToken", res.accessToken);
+        console.log(res.accessToken);
+      } catch (e: any) {
+        console.error(e);
+        if (e.status === 400) {
+          setAlertMessage(e.message);
+          setIsAlert(true);
+          setTimeout(() => {
+            setIsAlert(false);
+          }, 1000);
+        }
+      }
     }
   };
 
@@ -112,17 +108,14 @@ export default function MakeCharacterOnBoard() {
                 return;
               }
 
-              await tryLogin({
+              tryLogin({
                 socialId: avatarName,
-              });
-
-              setTimeout(async () => {
-                await addAvatar();
-              }, 200);
-
-              setTimeout(() => {
-                router.replace("/demo-day/home");
-              }, 400);
+              })
+                .then(addAvatar)
+                .catch(addAvatar)
+                .then(() => {
+                  router.replace("/demo-day/home");
+                });
             }}
           >
             캐릭터 생성 완료!
