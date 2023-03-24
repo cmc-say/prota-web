@@ -13,12 +13,16 @@ import styled from "@emotion/styled";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
+import { Alert } from "../alert/alert";
 import { CMCFooterBtn } from "../footerBtn/button";
 
 export default function MakeCharacterOnBoard() {
   const [file, setFile] = useState<File>();
   const [avatarName, setAvatarName] = useState("");
   const [avatarMessage, setAvatarMessage] = useState("");
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [isAlert, setIsAlert] = useState(false);
 
   const router = useRouter();
 
@@ -43,6 +47,11 @@ export default function MakeCharacterOnBoard() {
         })
         .catch((e: AxiosError) => {
           console.error(e);
+          setAlertMessage(e.message);
+          setIsAlert(true);
+          setTimeout(() => {
+            setIsAlert(false);
+          }, 1000);
         });
     }
   };
@@ -76,6 +85,7 @@ export default function MakeCharacterOnBoard() {
   return (
     <Styled.LWrapper>
       <Layout.Mobile>
+        {isAlert && <Alert message={alertMessage} />}
         <Styled.Container>
           <Header back />
           <FileUpload setValue={setFile} />
