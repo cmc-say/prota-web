@@ -15,14 +15,21 @@ import { AtomAllCharacters } from "@/app/atoms/Character";
 import { CharacterCard } from "@/app/components/home/CharacterCard";
 import { ProgressBar } from "@/app/components/ProgressBar";
 import { CheckListCard } from "@/app/components/home/CheckListCard";
+import { CMCFooterBtn } from "../footerBtn/button";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const characters = useRecoilValueLoadable(AtomAllCharacters);
+  const router = useRouter();
 
   const [isToggleOn, setToggleState] = useState(true);
   const [index, setIndex] = useState(0);
   const handleToggleContainerClick = () => {
     setToggleState((prev) => !prev);
+  };
+
+  const goWorld = async () => {
+    router.push("/demo-day/search");
   };
 
   return (
@@ -89,6 +96,7 @@ export default function HomePage() {
               ></CheckListCard>
             )
           )}
+          <CMCFooterBtn onclick={goWorld}>세계관으로 갈래요!</CMCFooterBtn>
         </Styled.Container>
       </Layout.Mobile>
     </Styled.LWrapper>

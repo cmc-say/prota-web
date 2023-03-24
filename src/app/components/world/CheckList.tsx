@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Line } from "./Line";
 import Image from "next/image";
 import { useState } from "react";
+import { GetAvatarAllWorldTodos } from "@/networks/network";
 
 const mockCheckList = {
   statusCode: 200,
@@ -33,38 +34,15 @@ const mockCheckList = {
   ],
 };
 
-export const CheckList = () => {
+export const CheckList = ({ todos }: { todos: GetAvatarAllWorldTodos }) => {
   const [data, setData] = useState(mockCheckList.data);
   return (
     <Container>
-      {data.map((check, index) => (
+      {todos.map((check, index) => (
         <Line
-          check={Boolean(check.checkedTodoId)}
+          // check={Boolean(check.)}
           key={check.todoId}
-          detail={
-            <Image
-              onClick={() =>
-                setData((value) =>
-                  value.map((_, _index) =>
-                    index === _index
-                      ? {
-                          ..._,
-                          checkedTodoId: Boolean(_.checkedTodoId) ? null : 10,
-                        }
-                      : _
-                  )
-                )
-              }
-              width={20}
-              height={20}
-              src={
-                check.checkedTodoId
-                  ? "/icons/state_on.svg"
-                  : "/icons/state_off.svg"
-              }
-              alt={"state" + check.todoId}
-            />
-          }
+          detail={<></>}
         >
           {check.todoContent}
         </Line>

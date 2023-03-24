@@ -1,10 +1,10 @@
-type World = {
+export type World = {
   worldId: number;
   worldName: string;
   worldUserLimit: number;
   worldImg: string;
-  worldStartDate: string;
-  worldEndDate: string;
+  worldStartDate: Date;
+  worldEndDate: Date;
   hashtags: Hashtag[];
   worldHostUserId: number;
   worldNotice: string;
@@ -27,7 +27,7 @@ type WorldAvatar = {
   avatarId: number;
 };
 
-type Todo = {
+export type Todo = {
   todoId: number;
   todoContent: string;
 };

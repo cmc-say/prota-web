@@ -3,6 +3,7 @@
 import { atom, selector } from "recoil";
 import { mockFetch } from "./mock";
 import WorldAPIService from "@/networks/worldAPIService";
+import { GetWorldListRes } from "@/networks/network";
 
 type Characters = {
   characterId: number;
@@ -101,11 +102,11 @@ export const AtomAddCharacterWorld = selector({
   },
 });
 
-export const AtomRealTimeWorld = selector<Worlds>({
+export const AtomRealTimeWorld = selector<GetWorldListRes>({
   key: "realTimeWorldSelector",
-  get: async ({ get }): Promise<Worlds> => {
+  get: async ({ get }): Promise<GetWorldListRes> => {
     const service = new WorldAPIService();
-    const realTimeWorld: Worlds = await service.getAllWorlds({
+    const realTimeWorld: GetWorldListRes = await service.getAllWorlds({
       type: "recent",
     });
     return realTimeWorld;

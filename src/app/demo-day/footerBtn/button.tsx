@@ -13,6 +13,7 @@ type Props = {
   popStack?: number;
   href?: string;
   onclick?: () => Promise<void>;
+  disabled?: boolean;
 };
 
 export const CMCFooterBtn: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const CMCFooterBtn: React.FC<Props> = ({
   error = false,
   children,
   onclick,
+  disabled = false,
 }) => {
   const [isKeyUp, setKeyUp] = useState<boolean>(false);
 
@@ -56,7 +58,7 @@ export const CMCFooterBtn: React.FC<Props> = ({
               {subTitle}
             </SubTitle>
           )}
-          <Button onClick={onclick}>
+          <Button disabled={disabled} onClick={onclick}>
             <Text
               color={ColorType.NEUTRAL00}
               type={TextSizeType.KR_SUB_HEAD_01}

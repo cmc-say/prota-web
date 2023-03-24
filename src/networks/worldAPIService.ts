@@ -10,6 +10,7 @@ import {
   GetRecommendedWorldRes,
   GetRecommendedWorldTodosRes,
   GetWorldInfoReq,
+  GetWorldInfoRes,
   GetWorldListRes,
   SearchWorldReq,
   UpdateWorldImgReq,
@@ -54,7 +55,7 @@ export default class WorldAPIService extends APINetworkService {
     const res = await axiosinstance.delete(`/world/${req.worldId}`);
     return res.data;
   }
-  async getWorldInfoById(req: GetWorldInfoReq) {
+  async getWorldInfoById(req: GetWorldInfoReq): Promise<GetWorldInfoRes> {
     const res = await axiosinstance.get(`/world/${req.worldId}`);
     return res.data.data;
   }
