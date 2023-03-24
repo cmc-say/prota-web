@@ -10,8 +10,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { axiosinstance, axiosMediaInstance } from "@/networks/networkCore";
 
-import { PopUp } from "./demo-day/popup/popup";
-
 export default function OnBoard() {
   const route = useRouter();
 

@@ -7,6 +7,8 @@ import { Button } from "@/styled/button";
 
 import CharacterAPIService from "@/networks/characterAPIService";
 import { GetWorldListRes } from "@/networks/network";
+import { PopUp } from "@/app/demo-day/popup/popup";
+import { Alert } from "@/app/demo-day/alert/alert";
 
 interface CheckListCardProps {
   imageSrc: string;
@@ -24,8 +26,16 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
   characterId,
 }) => {
   const apiService = new CharacterAPIService();
-  const [selectedCheckList, setCheckList] = useState<string[]>([]);
+
+  const [selectedCheckList, setCheckList] = useState<string[]>(
+    localStorage.getItem("checkList")
+      ? [...localStorage.getItem("checkList")!.split(",")]
+      : []
+  );
   const [world, setWorld] = useState<GetWorldListRes>([]);
+
+  const [isTodayWordPopUpOpend, setPopUpOpened] = useState(false);
+
   const TextList = [
     "📚(명화 역할) : 8시간 가만히 공부하기",
     "🧘‍♀️(박물관이 살아있다) : 스트레칭하기",
@@ -45,6 +55,7 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
 
   return (
     <CardContainer>
+      {isTodayWordPopUpOpend && <Alert message="오늘의 한마디를 작성했어요!" />}
       <Text color={ColorType.NEUTRAL200} type={TextSizeType.KR_CAPTION_01}>
         캐릭터 0{index}
       </Text>
@@ -88,7 +99,7 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
                   } else {
                     newList.push(todo.todoContent);
                   }
-
+                  localStorage.setItem("checkList", newList.join(","));
                   return newList;
                 })
               }
@@ -113,6 +124,16 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
             isAllDone={TextList.length === selectedCheckList.length}
           >
             <Text
+              onClick={
+                TextList.length === selectedCheckList.length
+                  ? () => {
+                      setPopUpOpened(true);
+                      setTimeout(() => {
+                        setPopUpOpened(false);
+                      }, 1000);
+                    }
+                  : undefined
+              }
               color={
                 TextList.length === selectedCheckList.length
                   ? ColorType.NEUTRAL00
