@@ -10,6 +10,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { axiosinstance, axiosMediaInstance } from "@/networks/networkCore";
 
+import { PopUp } from "./demo-day/popup/popup";
+
 export default function OnBoard() {
   const route = useRouter();
 
@@ -19,11 +21,9 @@ export default function OnBoard() {
       axiosinstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${token}`;
-
       axiosMediaInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${token}`;
-
       setTimeout(() => {
         route.replace("/demo-day/home");
       }, 100);
@@ -32,7 +32,6 @@ export default function OnBoard() {
 
   return (
     <Styled.LWrapper>
-      <Alert></Alert>
       <Layout.Mobile>
         <Styled.Container>
           <Header />
@@ -90,24 +89,6 @@ export default function OnBoard() {
     </Styled.LWrapper>
   );
 }
-
-const PopUp = () => {
-  return <></>;
-};
-
-const Alert = () => {
-  return <AlertStyled.Container>123</AlertStyled.Container>;
-};
-
-const AlertStyled = {
-  Container: styled.div`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    height: 100px;
-    width: 100px;
-  `,
-};
 
 const OnBoardStyled = {
   LWrapper: styled(Layout.Wrapper)``,
