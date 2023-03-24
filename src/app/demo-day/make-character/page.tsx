@@ -42,14 +42,15 @@ export default function MakeCharacterOnBoard() {
         localStorage.setItem("accessToken", res.accessToken);
         console.log(res.accessToken);
       } catch (e: any) {
-        console.error(e);
         if (e.status === 400) {
-          setAlertMessage(e.message);
-          setIsAlert(true);
-          setTimeout(() => {
-            setIsAlert(false);
-          }, 1000);
+          setAlertMessage("중복 닉네임이에요!");
+        } else if (e.status === 413) {
+          setAlertMessage("사진 용량이 너무 커요!");
         }
+        setIsAlert(true);
+        setTimeout(() => {
+          setIsAlert(false);
+        }, 1000);
       }
     }
   };
