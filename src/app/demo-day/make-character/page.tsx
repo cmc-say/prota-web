@@ -38,7 +38,7 @@ export default function MakeCharacterOnBoard() {
           axiosMediaInstance.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${res.accessToken}`;
-          console.log(res);
+          localStorage.setItem("accessToken", res.accessToken);
         })
         .catch((e: AxiosError) => {
           console.error(e);

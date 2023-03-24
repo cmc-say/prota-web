@@ -6,8 +6,30 @@ import styled from "@emotion/styled";
 import Image from "next/image";
 import { FooterBtn } from "./components/world/FooterBtn";
 import { Header } from "./components/header/Header";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { axiosinstance, axiosMediaInstance } from "@/networks/networkCore";
 
 export default function OnBoard() {
+  const route = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      axiosinstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
+
+      axiosMediaInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
+
+      setTimeout(() => {
+        route.replace("/demo-day/home");
+      }, 100);
+    }
+  }, []);
+
   return (
     <Styled.LWrapper>
       <Alert></Alert>
