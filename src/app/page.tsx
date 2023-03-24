@@ -1,91 +1,97 @@
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from './page.module.css'
+"use client";
+import { Text, TextSizeType } from "@/styled/typography";
+import { ColorType } from "@/styled/color.type";
+import { Layout } from "@/styled/layout";
+import styled from "@emotion/styled";
+import Image from "next/image";
+import { FooterBtn } from "./components/world/FooterBtn";
+import { Header } from "./components/header/Header";
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
+export default function OnBoard() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <Styled.LWrapper>
+      <Layout.Mobile>
+        <Styled.Container>
+          <Header />
+          <Styled.TitleIcon
+            src={"/icons/PROTA.svg"}
+            alt="PROTA"
+            width={133}
+            height={21}
+          />
+          <Styled.Description
+            color={ColorType.NEUTRAL00}
+            type={TextSizeType.KR_HEAD_02}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
+            지금부터 당신은
+            <br />
+            <Text color={ColorType.SECONDARY1} type={TextSizeType.KR_HEAD_02}>
+              세계관 속 캐릭터
+            </Text>
+            가 됩니다.
+          </Styled.Description>
+          <Styled.DeemText
+            color={ColorType.NEUTRAL100}
+            type={TextSizeType.KR_SUB_HEAD_01}
+          >
+            캐릭터에 열렬히 과몰입하기!
+          </Styled.DeemText>
+          <Styled.SubTitleContainer>
+            <Styled.Icon
+              src={"/icons/onboard_star.svg"}
+              alt="star"
+              width={24}
               height={24}
-              priority
             />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+            <Styled.SubTitle
+              color={ColorType.NEUTRAL00}
+              type={TextSizeType.KR_SUB_HEAD_02}
+            >
+              <Text
+                color={ColorType.TARTIARY1}
+                type={TextSizeType.KR_SUB_HEAD_02}
+              >
+                내가 되고 싶은 캐릭터 컨셉
+              </Text>
+              을 잡아요. <br />
+              다른 유저들의 캐릭터와 함께
+              <br />
+              재미있는 체크리스트를 달성해요!
+            </Styled.SubTitle>
+          </Styled.SubTitleContainer>
+          <FooterBtn href="/onboard/make-recommend-first">
+            바로 세계관을 만들어볼까요?
+          </FooterBtn>
+        </Styled.Container>
+      </Layout.Mobile>
+    </Styled.LWrapper>
+  );
 }
+
+const OnBoardStyled = {
+  LWrapper: styled(Layout.Wrapper)``,
+  Container: styled.div`
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  `,
+  TitleIcon: styled(Image)`
+    margin-top: 113px;
+    margin-bottom: 24px;
+  `,
+  Description: styled(Text)``,
+  DeemText: styled(Text)`
+    display: inline-block;
+    margin-top: 8px;
+  `,
+  SubTitleContainer: styled.div`
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  `,
+  SubTitle: styled(Text)``,
+  Icon: styled(Image)``,
+};
+
+const Styled = OnBoardStyled;
