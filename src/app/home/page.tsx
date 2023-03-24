@@ -88,6 +88,7 @@ export default function HomePage() {
               index={1}
               imageSrc="/static/images/meta_mock.png"
               characterName="메타몽"
+              characterId={0}
               characterDescription="다음 생엔 돌로 태어나야지"
             ></CheckListCard>
           )}
