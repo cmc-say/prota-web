@@ -33,7 +33,7 @@ export default function LoginPage() {
 
           // @ts-ignore: Unreachable code error
           window.ReactNativeWebView?.postMessage(data);
-          res.isSignuped ? router.replace("/home") : router.push("/onboard");
+          res.isSignuped ? router.replace("/onboard") : router.push("/onboard");
         })
         .catch((e: AxiosError) => {
           console.error(e);
@@ -42,8 +42,13 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    const loginRequired: LoginRequired =
-      (window as any).loginRequired || (document as any).loginRequired;
+    const loginRequired: LoginRequired = {
+      deviceToken:
+        "fZGxLJSfSOG5QxTWrjost6:APA91bFLwlkKc3eGuxAcUpLp4ZG-BFhrEHiUe3Cuucbc6fu6WqRe_uw6FdoU_--2GM2xBNtBa6IhqA3DYcuWDTbSg1RbVqjpUbmQRhNq87V2254dJKklBYL_WyH54I5kkI6zIufSNe6k",
+      socialId: "2710089860",
+      socialType: "kakao",
+    };
+    // (window as any).loginRequired || (document as any).loginRequired;
 
     tryLogin(loginRequired);
   }, []);
