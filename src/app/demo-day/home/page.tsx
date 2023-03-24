@@ -70,7 +70,7 @@ export default function HomePage() {
                     </SwiperSlide>
                   ))}
               </Swiper>
-              {characters.state === "hasValue" &&
+              {/* {characters.state === "hasValue" &&
                 index < characters.getValue().length && (
                   <Styled.ProgressForm>
                     <GraphText
@@ -81,7 +81,7 @@ export default function HomePage() {
                     </GraphText>
                     <ProgressBar percent={0} />
                   </Styled.ProgressForm>
-                )}
+                )} */}
             </>
           ) : (
             characters.state === "hasValue" && (
