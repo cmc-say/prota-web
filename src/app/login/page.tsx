@@ -33,7 +33,7 @@ export default function LoginPage() {
 
           // @ts-ignore: Unreachable code error
           window.ReactNativeWebView?.postMessage(data);
-          res.isSignuped ? router.replace("/onboard") : router.push("/onboard");
+          res.isSignuped ? router.replace("/home") : router.push("/onboard");
         })
         .catch((e: AxiosError) => {
           console.error(e);
