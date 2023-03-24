@@ -10,6 +10,7 @@ import { Header } from "./components/header/Header";
 export default function OnBoard() {
   return (
     <Styled.LWrapper>
+      <Alert></Alert>
       <Layout.Mobile>
         <Styled.Container>
           <Header />
@@ -59,14 +60,32 @@ export default function OnBoard() {
               재미있는 체크리스트를 달성해요!
             </Styled.SubTitle>
           </Styled.SubTitleContainer>
-          <FooterBtn href="/onboard/make-recommend-first">
-            바로 세계관을 만들어볼까요?
+          <FooterBtn href="/demo-day/make-character">
+            바로 캐릭터에 과몰입 해보세요!
           </FooterBtn>
         </Styled.Container>
       </Layout.Mobile>
     </Styled.LWrapper>
   );
 }
+
+const PopUp = () => {
+  return <></>;
+};
+
+const Alert = () => {
+  return <AlertStyled.Container>123</AlertStyled.Container>;
+};
+
+const AlertStyled = {
+  Container: styled.div`
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100px;
+    width: 100px;
+  `,
+};
 
 const OnBoardStyled = {
   LWrapper: styled(Layout.Wrapper)``,

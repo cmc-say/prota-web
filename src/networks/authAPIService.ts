@@ -17,6 +17,10 @@ export default class AuthApiService extends APINetworkService {
     const res = await axiosinstance.post("/auth/login", req);
     return res.data.data;
   }
+  async letsLogin(req: Pick<LoginReq, "socialId">): Promise<LoginRes> {
+    const res = await axiosinstance.post("auth/login/cmc", req);
+    return res.data.data;
+  }
   async logout(req: LogoutReq): Promise<LogoutRes> {
     const res = await axiosinstance.post("/auth/logout", req);
     return res.data.data;

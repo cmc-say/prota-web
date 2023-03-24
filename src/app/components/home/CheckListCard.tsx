@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 import React, { useState } from "react";
 import CheckBox from "./CheckBox";
 import { Button } from "@/styled/button";
+import { useRecoilValueLoadable } from "recoil";
+import { AtomCharacterWorldsSelector } from "@/app/atoms/atom";
 
 interface CheckListCardProps {
   imageSrc: string;
@@ -17,6 +19,8 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
   characterDescription,
   index,
 }) => {
+  const worlds = useRecoilValueLoadable(AtomCharacterWorldsSelector);
+
   const [selectedCheckList, setCheckList] = useState<string[]>([]);
   const TextList = [
     "📚(명화 역할) : 8시간 가만히 공부하기",
@@ -50,6 +54,8 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
         >
           CheckList
         </TextWrapper.CheckText>
+
+        {worlds.state === "hasValue" && <>{worlds.getValue().at(0)?.worldId}</>}
         {TextList.map((text) => (
           <CheckListItem
             onClick={() =>

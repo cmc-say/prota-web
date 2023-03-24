@@ -12,10 +12,10 @@ type Props = {
   isBack?: boolean;
   popStack?: number;
   href?: string;
-  onclick?: () => void;
+  onclick?: () => Promise<void>;
 };
 
-export const FooterBtn: React.FC<Props> = ({
+export const CMCFooterBtn: React.FC<Props> = ({
   subTitle,
   error = false,
   children,
@@ -59,47 +59,16 @@ export const FooterBtn: React.FC<Props> = ({
               {subTitle}
             </SubTitle>
           )}
-
-          {isBack ? (
-            <Button
-              onClick={() => {
-                if (onclick) onclick();
-                router.back();
-              }}
-            >
+          <Button onClick={onclick}>
+            <Link href={href}>
               <Text
                 color={ColorType.NEUTRAL00}
                 type={TextSizeType.KR_SUB_HEAD_01}
               >
                 {children}
               </Text>
-            </Button>
-          ) : (
-            <Button
-              disabled={!href}
-              onClick={async () => {
-                if (onclick) await onclick();
-                if (!popStack) {
-                  return;
-                }
-                setTimeout(() => {
-                  router.replace(href);
-                }, 100);
-                for (let index = 0; index < popStack; index++) {
-                  router.back();
-                }
-              }}
-            >
-              <Link href={href}>
-                <Text
-                  color={ColorType.NEUTRAL00}
-                  type={TextSizeType.KR_SUB_HEAD_01}
-                >
-                  {children}
-                </Text>
-              </Link>
-            </Button>
-          )}
+            </Link>
+          </Button>
         </Footer>
       )}
     </>
