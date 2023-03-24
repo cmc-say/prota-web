@@ -80,6 +80,7 @@ export default function HomePage() {
             characters.state === "hasValue" && (
               <CheckListCard
                 index={0}
+                characterId={characters.getValue().at(0)?.avatarId ?? 0}
                 imageSrc="/static/images/meta_mock.png"
                 characterName={characters.getValue().at(0)?.avatarName ?? ""}
                 characterDescription={

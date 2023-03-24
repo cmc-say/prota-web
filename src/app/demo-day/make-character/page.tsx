@@ -38,6 +38,7 @@ export default function MakeCharacterOnBoard() {
           axiosMediaInstance.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${res.accessToken}`;
+
           localStorage.setItem("accessToken", res.accessToken);
         })
         .catch((e: AxiosError) => {
@@ -65,12 +66,11 @@ export default function MakeCharacterOnBoard() {
       return;
     }
     const character = new CharacterAPIService();
-    const res = await character.addCharacter({
+    await character.addCharacter({
       avatarImg: file,
       avatarName,
       avatarMessage,
     });
-    console.log(res);
   };
 
   return (
@@ -103,9 +103,12 @@ export default function MakeCharacterOnBoard() {
               await tryLogin({
                 socialId: avatarName,
               });
+
               setTimeout(async () => {
                 await addAvatar();
-                router.replace("/demo-day/home");
+                setTimeout(() => {
+                  router.replace("/demo-day/home");
+                }, 200);
               }, 200);
             }}
           >

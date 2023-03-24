@@ -1,7 +1,7 @@
 import { ColorType } from "@/styled/color.type";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -19,9 +19,6 @@ export const CMCFooterBtn: React.FC<Props> = ({
   subTitle,
   error = false,
   children,
-  isBack,
-  popStack,
-  href = "",
   onclick,
 }) => {
   const [isKeyUp, setKeyUp] = useState<boolean>(false);
@@ -60,14 +57,12 @@ export const CMCFooterBtn: React.FC<Props> = ({
             </SubTitle>
           )}
           <Button onClick={onclick}>
-            <Link href={href}>
-              <Text
-                color={ColorType.NEUTRAL00}
-                type={TextSizeType.KR_SUB_HEAD_01}
-              >
-                {children}
-              </Text>
-            </Link>
+            <Text
+              color={ColorType.NEUTRAL00}
+              type={TextSizeType.KR_SUB_HEAD_01}
+            >
+              {children}
+            </Text>
           </Button>
         </Footer>
       )}

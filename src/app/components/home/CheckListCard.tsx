@@ -1,14 +1,18 @@
 import { ColorType } from "@/styled/color.type";
 import { Text, TextSizeType } from "@/styled/typography";
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckBox from "./CheckBox";
 import { Button } from "@/styled/button";
 import { useRecoilValueLoadable } from "recoil";
 import { AtomCharacterWorldsSelector } from "@/app/atoms/atom";
+import { axiosinstance } from "@/networks/networkCore";
+import CharacterAPIService from "@/networks/characterAPIService";
+import { GetWorldListRes } from "@/networks/network";
 
 interface CheckListCardProps {
   imageSrc: string;
+  characterId: number;
   characterName: string;
   characterDescription: string;
   index: number;
@@ -18,16 +22,27 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
   characterName,
   characterDescription,
   index,
+  characterId,
 }) => {
-  const worlds = useRecoilValueLoadable(AtomCharacterWorldsSelector);
-
+  const apiService = new CharacterAPIService();
   const [selectedCheckList, setCheckList] = useState<string[]>([]);
+  const [world, setWorld] = useState<GetWorldListRes>([]);
   const TextList = [
     "📚(명화 역할) : 8시간 가만히 공부하기",
     "🧘‍♀️(박물관이 살아있다) : 스트레칭하기",
     "🤗(명화 케어) : 매일 선크림 바르기",
     "📚(관객과 소통) : 외국어 공부 2시간하기",
   ];
+  const fetchWorld = async () => {
+    const worldGet = await apiService.getAllCharacterWorlds({
+      avatarId: characterId,
+    });
+
+    setWorld(worldGet);
+  };
+  useEffect(() => {
+    fetchWorld();
+  }, [characterId]);
 
   return (
     <CardContainer>
@@ -55,32 +70,41 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
           CheckList
         </TextWrapper.CheckText>
 
-        {worlds.state === "hasValue" && <>{worlds.getValue().at(0)?.worldId}</>}
-        {TextList.map((text) => (
-          <CheckListItem
-            onClick={() =>
-              setCheckList((prev) => {
-                const existNumber = prev.findIndex((check) => check === text);
-                let newList = [...prev];
+        {world.length === 0 ? (
+          <Text color={ColorType.NEUTRAL100} type={TextSizeType.KR_SUB_HEAD_01}>
+            아직 체크리스트가 없어요!
+          </Text>
+        ) : (
+          world.at(0)?.todos.map((todo) => (
+            <CheckListItem
+              onClick={() =>
+                setCheckList((prev) => {
+                  const existNumber = prev.findIndex(
+                    (check) => check === todo.todoContent
+                  );
+                  let newList = [...prev];
 
-                if (existNumber !== -1) {
-                  newList.splice(existNumber, 1);
-                } else {
-                  newList.push(text);
-                }
+                  if (existNumber !== -1) {
+                    newList.splice(existNumber, 1);
+                  } else {
+                    newList.push(todo.todoContent);
+                  }
 
-                return newList;
-              })
-            }
-          >
-            <CheckBox
-              isSelected={
-                selectedCheckList.findIndex((check) => check === text) !== -1
+                  return newList;
+                })
               }
-              text={text}
-            ></CheckBox>
-          </CheckListItem>
-        ))}
+            >
+              <CheckBox
+                isSelected={
+                  selectedCheckList.findIndex(
+                    (check) => check === todo.todoContent
+                  ) !== -1
+                }
+                text={todo.todoContent}
+              ></CheckBox>
+            </CheckListItem>
+          ))
+        )}
 
         <ButtonButtonContainer>
           <Text color={ColorType.NEUTRAL100} type={TextSizeType.KR_CAPTION_01}>
