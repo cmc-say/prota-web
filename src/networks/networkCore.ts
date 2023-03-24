@@ -4,6 +4,20 @@ export const axiosinstance = axios.create({
   baseURL: "https://s0pterest.shop/api/v1",
   withCredentials: true,
 });
+
+axiosinstance.interceptors.request.use(
+  function (config) {
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 export const axiosMediaInstance = axios.create({
   headers: {
     "Content-Type": "multipart/form-data",
@@ -11,6 +25,20 @@ export const axiosMediaInstance = axios.create({
   baseURL: "https://s0pterest.shop/api/v1",
   withCredentials: true,
 });
+
+axiosMediaInstance.interceptors.request.use(
+  function (config) {
+    const token = localStorage.getItem("accessToken");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
 export interface NetworkInstance {
   get<T>(url: string): Promise<T>;

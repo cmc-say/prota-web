@@ -47,11 +47,13 @@ export default function MakeCharacterOnBoard() {
         })
         .catch((e: AxiosError) => {
           console.error(e);
-          setAlertMessage(e.message);
-          setIsAlert(true);
-          setTimeout(() => {
-            setIsAlert(false);
-          }, 1000);
+          if (e.status === 400) {
+            setAlertMessage(e.message);
+            setIsAlert(true);
+            setTimeout(() => {
+              setIsAlert(false);
+            }, 1000);
+          }
         });
     }
   };
@@ -116,10 +118,11 @@ export default function MakeCharacterOnBoard() {
 
               setTimeout(async () => {
                 await addAvatar();
-                setTimeout(() => {
-                  router.replace("/demo-day/home");
-                }, 200);
               }, 200);
+
+              setTimeout(() => {
+                router.replace("/demo-day/home");
+              }, 400);
             }}
           >
             캐릭터 생성 완료!
