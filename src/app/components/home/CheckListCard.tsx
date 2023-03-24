@@ -4,9 +4,7 @@ import styled from "@emotion/styled";
 import React, { useEffect, useState } from "react";
 import CheckBox from "./CheckBox";
 import { Button } from "@/styled/button";
-import { useRecoilValueLoadable } from "recoil";
-import { AtomCharacterWorldsSelector } from "@/app/atoms/atom";
-import { axiosinstance } from "@/networks/networkCore";
+
 import CharacterAPIService from "@/networks/characterAPIService";
 import { GetWorldListRes } from "@/networks/network";
 

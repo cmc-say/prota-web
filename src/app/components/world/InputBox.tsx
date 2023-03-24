@@ -26,7 +26,12 @@ export const InputBox: React.FC<Props> = ({
         </Label>
       )}
       <Relative>
-        <Input placeholder={placeholder} value={value} onChange={onChange} />
+        <Input
+          placeholder={placeholder}
+          value={value}
+          maxLength={maxLength}
+          onChange={onChange}
+        />
         {maxLength && (
           <TextLength
             type={TextSizeType.KR_BODY_01}

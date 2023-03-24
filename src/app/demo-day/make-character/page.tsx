@@ -84,7 +84,7 @@ export default function MakeCharacterOnBoard() {
               onChange={onChangeName}
               placeholder="캐릭터 이름"
               value={avatarName}
-              maxLength={6}
+              maxLength={12}
             />
             <TextArea
               onChange={onChangeState}
