@@ -90,7 +90,7 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
         {characterDescription}
       </TextWrapper.DescriptionText>
 
-      <Link href={"/world/my-world"}>
+      <Link href={"/demo-day/search"}>
         <TextWrapper.RouteText
           color={ColorType.NEUTRAL00}
           type={TextSizeType.KR_CAPTION_01}

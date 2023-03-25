@@ -36,7 +36,7 @@ export default function WorldDetail({ params: { worldId } }: any) {
 
   if (worldDetail.state === "hasValue") {
     return (
-      <Layout.Wrapper>
+      <LWrapper>
         <Layout.Mobile>
           <Container>
             <Header back>{worldDetail.getValue().world.worldName}</Header>
@@ -76,7 +76,7 @@ export default function WorldDetail({ params: { worldId } }: any) {
             </CMCFooterBtn>
           )}
         </Layout.Mobile>
-      </Layout.Wrapper>
+      </LWrapper>
     );
   } else {
     return <></>;
@@ -84,6 +84,10 @@ export default function WorldDetail({ params: { worldId } }: any) {
 }
 
 const WorldDetailStyled = {};
+
+const LWrapper = styled(Layout.Wrapper)`
+  overflow-y: scroll;
+`;
 
 const Container = styled.div`
   padding: 24px;
