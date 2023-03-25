@@ -104,6 +104,7 @@ export default function MakeCharacterOnBoard() {
           </Styled.Description>
 
           <CMCFooterBtn
+            disabled={!avatarName || !file}
             onclick={async () => {
               if (!avatarName || !file) {
                 return;
