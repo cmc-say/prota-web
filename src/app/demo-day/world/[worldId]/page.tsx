@@ -66,7 +66,9 @@ export default function WorldDetail({ params: { worldId } }: any) {
               ))}
             </CheckListCharacter>
           </Container>
-          {worldDetail.getValue().isMember ? (
+          {worldId !== "21" ? (
+            <CMCFooterBtn disabled>이 세계관은 이용할 수 없어요.</CMCFooterBtn>
+          ) : worldDetail.getValue().isMember ? (
             <CMCFooterBtn disabled>이미 참여중인 세계관이에요!</CMCFooterBtn>
           ) : (
             <CMCFooterBtn onclick={worldIn}>
