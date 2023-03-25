@@ -36,14 +36,14 @@ export const CMCFooterBtn: React.FC<Props> = ({
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("resize", detectResize);
-    document.addEventListener("resize", detectResize);
-    return () => {
-      window.removeEventListener("resize", detectResize);
-      document.removeEventListener("resize", detectResize);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("resize", detectResize);
+  //   document.addEventListener("resize", detectResize);
+  //   return () => {
+  //     window.removeEventListener("resize", detectResize);
+  //     document.removeEventListener("resize", detectResize);
+  //   };
+  // }, []);
 
   const router = useRouter();
   return (
