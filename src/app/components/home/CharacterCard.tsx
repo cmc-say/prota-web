@@ -98,11 +98,11 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           세계관으로 이동 {`>`}
         </TextWrapper.RouteText>
       </Link>
-      <Link href={`/home/${characterId}/edit`}>
+      {/* <Link href={`/home/${characterId}/edit`}>
         <CardEditContainer>
           <Image height={24} width={24} src={"/static/images/edit_icon.png"} alt="" />
         </CardEditContainer>
-      </Link>
+      </Link> */}
     </CardContainer>
   );
 };
