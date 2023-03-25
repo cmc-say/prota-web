@@ -89,7 +89,8 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
         ) : (
           world.at(0)?.todos.map((todo) => (
             <CheckListItem
-              onClick={() =>
+              onClick={(event) => {
+                event.stopPropagation();
                 setCheckList((prev) => {
                   const existNumber = prev.findIndex(
                     (check) => check === todo.todoContent
@@ -103,8 +104,8 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
                   }
                   localStorage.setItem("checkList", newList.join(","));
                   return newList;
-                })
-              }
+                });
+              }}
             >
               <CheckBox
                 isSelected={
