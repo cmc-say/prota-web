@@ -52,6 +52,7 @@ const PopularWorldStyled = {
     overflow-y: scroll;
   `,
   WorldGapList: styled.div`
+    margin-bottom: 120px;
     width: 100%;
     display: flex;
     flex-direction: column;

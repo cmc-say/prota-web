@@ -150,6 +150,7 @@ const CheckListCharacter = styled.div`
   grid-template-columns: repeat(4, 1fr);
   column-gap: 26px;
   row-gap: 13px;
+  margin-bottom: 120px;
 
   /* flex-wrap: wrap; */
 `;
