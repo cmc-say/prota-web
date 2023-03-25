@@ -43,7 +43,7 @@ type RecommendedAlarm = {
   recommendedAlarmContent: string;
 };
 
-type Avatar = {
+export type Avatar = {
   avatarId: number;
   avatarName: string;
   avatarImg: string;

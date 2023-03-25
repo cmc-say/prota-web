@@ -16,12 +16,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PopUp } from "../../popup/popup";
 import { useState } from "react";
+import { Avatar } from "@/networks/network";
+import { Alert } from "../../alert/alert";
 
 export default function WorldDetail({ params: { worldId } }: any) {
   const router = useRouter();
   const characters = useRecoilValueLoadable(AtomAllCharacters);
   const worldDetail = useRecoilValueLoadable(AtomWorldDetail(worldId));
   const refresh = useRecoilRefresher_UNSTABLE(AtomWorldDetail(worldId));
+
+  const [character, setCharacter] = useState<Avatar>();
+  const [isPopUp, setPopUp] = useState(false);
+  const [isAlert, setAlert] = useState(false);
 
   const worldIn = async () => {
     const service = new CharacterAPIService();
@@ -36,12 +42,31 @@ export default function WorldDetail({ params: { worldId } }: any) {
     }
   };
 
-  const onCharacterClicked = () => {};
+  const onCharacterClicked = (character: Avatar) => {
+    setCharacter(character);
+    setPopUp(true);
+  };
 
   if (worldDetail.state === "hasValue") {
     return (
       <LWrapper>
-        {/* <PopUp></PopUp> */}
+        {isAlert && <Alert message="자고 있는 사용자를 깨웠어요!" />}
+        {isPopUp && character && (
+          <PopUp
+            onExit={() => {
+              setPopUp(false);
+            }}
+            onSuccess={() => {
+              setPopUp(false);
+              setAlert(true);
+              setTimeout(() => {
+                setAlert(false);
+              }, 1000);
+            }}
+            source={character.avatarImg}
+            name={character.avatarName}
+          ></PopUp>
+        )}
         <Layout.Mobile>
           <Container>
             <Header back>{worldDetail.getValue().world.worldName}</Header>
@@ -64,6 +89,7 @@ export default function WorldDetail({ params: { worldId } }: any) {
             <CheckListCharacter>
               {worldDetail.getValue().members.map((avatar) => (
                 <WorldCharacter
+                  onClick={() => onCharacterClicked(avatar)}
                   size={66}
                   src={avatar.avatarImg}
                   value={avatar.avatarName}

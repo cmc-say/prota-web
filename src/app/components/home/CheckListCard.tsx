@@ -129,7 +129,8 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
             <Text
               onClick={
                 TextList.length === selectedCheckList.length
-                  ? () => {
+                  ? (event) => {
+                      event.stopPropagation();
                       setPopUpOpened(true);
                       setTimeout(() => {
                         setPopUpOpened(false);

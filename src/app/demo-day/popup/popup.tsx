@@ -206,7 +206,10 @@ const PopUpStyled = {
     border: 2px solid ${({ color }) => color};
     border-radius: 40px;
 
-    ${({ isSelected, color }) => isSelected && `color: ${ColorType.NEUTRAL00}`};
+    ${({ isSelected, color }) =>
+      isSelected && color === ColorType.SECONDARY1
+        ? `color: ${ColorType.NEUTRAL600}`
+        : `color: ${ColorType.NEUTRAL00}`};
   `,
   ButtonContainer: styled.div`
     width: 100%;
