@@ -16,6 +16,7 @@ interface CheckListCardProps {
   characterName: string;
   characterDescription: string;
   index: number;
+  onClick?: () => void;
 }
 
 export const CheckListCard: React.FC<CheckListCardProps> = ({
@@ -24,6 +25,7 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
   characterDescription,
   index,
   characterId,
+  onClick,
 }) => {
   const apiService = new CharacterAPIService();
 
@@ -54,7 +56,7 @@ export const CheckListCard: React.FC<CheckListCardProps> = ({
   }, [characterId]);
 
   return (
-    <CardContainer>
+    <CardContainer onClick={onClick}>
       {isTodayWordPopUpOpend && <Alert message="오늘의 한마디를 작성했어요!" />}
       <Text color={ColorType.NEUTRAL200} type={TextSizeType.KR_CAPTION_01}>
         캐릭터 0{index}

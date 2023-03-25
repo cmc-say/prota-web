@@ -90,14 +90,14 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
         {characterDescription}
       </TextWrapper.DescriptionText>
 
-      <Link href={"/demo-day/search"}>
+      {/* <Link href={"/demo-day/search"}>
         <TextWrapper.RouteText
           color={ColorType.NEUTRAL00}
           type={TextSizeType.KR_CAPTION_01}
         >
           세계관으로 이동 {`>`}
         </TextWrapper.RouteText>
-      </Link>
+      </Link> */}
       {/* <Link href={`/home/${characterId}/edit`}>
         <CardEditContainer>
           <Image height={24} width={24} src={"/static/images/edit_icon.png"} alt="" />

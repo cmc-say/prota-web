@@ -14,6 +14,8 @@ import { useRecoilRefresher_UNSTABLE, useRecoilValueLoadable } from "recoil";
 import { CMCFooterBtn } from "../../footerBtn/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { PopUp } from "../../popup/popup";
+import { useState } from "react";
 
 export default function WorldDetail({ params: { worldId } }: any) {
   const router = useRouter();
@@ -34,9 +36,12 @@ export default function WorldDetail({ params: { worldId } }: any) {
     }
   };
 
+  const onCharacterClicked = () => {};
+
   if (worldDetail.state === "hasValue") {
     return (
       <LWrapper>
+        {/* <PopUp></PopUp> */}
         <Layout.Mobile>
           <Container>
             <Header back>{worldDetail.getValue().world.worldName}</Header>

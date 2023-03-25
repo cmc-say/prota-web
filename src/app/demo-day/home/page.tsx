@@ -32,6 +32,10 @@ export default function HomePage() {
     router.push("/demo-day/search");
   };
 
+  const [isClicked, setIsClicked] = useState(false);
+  const characterCardClicked = () => {
+    setToggleState((prev) => !prev);
+  };
   return (
     <Styled.LWrapper>
       <Layout.Mobile>
@@ -59,7 +63,10 @@ export default function HomePage() {
                 {characters.state === "hasValue" &&
                   characters.getValue().length &&
                   characters.getValue().map((avatar, index) => (
-                    <SwiperSlide key={avatar.avatarName}>
+                    <SwiperSlide
+                      onClick={() => setToggleState((prev) => !prev)}
+                      key={avatar.avatarName}
+                    >
                       <CharacterCard
                         index={index + 1}
                         characterId={avatar.avatarId}
@@ -93,10 +100,13 @@ export default function HomePage() {
                 characterDescription={
                   characters.getValue().at(0)?.avatarMessage ?? ""
                 }
+                onClick={characterCardClicked}
               ></CheckListCard>
             )
           )}
-          <CMCFooterBtn onclick={goWorld}>세계관으로 갈래요!</CMCFooterBtn>
+          {isToggleOn && (
+            <CMCFooterBtn onclick={goWorld}>세계관으로 갈래요!</CMCFooterBtn>
+          )}
         </Styled.Container>
       </Layout.Mobile>
     </Styled.LWrapper>
